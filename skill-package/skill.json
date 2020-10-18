@@ -22,7 +22,12 @@
       "custom": {
         "endpoint": {
           "uri": "arn:aws:lambda:ap-northeast-1:704229799072:function:ask-calendar-default-skillStack-AlexaSkillFunction-AL874PHDRO93"
-        }
+        },
+        "interfaces": [
+          {
+            "type": "ALEXA_PRESENTATION_APL"
+          }
+        ]
       }
     },
     "manifestVersion": "1.0"
