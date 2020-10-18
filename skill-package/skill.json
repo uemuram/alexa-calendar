@@ -5,11 +5,9 @@
         "ja-JP": {
           "summary": "Sample Short Description",
           "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
+            "アレクサ、シンプルカレンダーを開いて"
           ],
-          "name": "calendar",
+          "name": "シンプルカレンダー",
           "description": "Sample Full Description"
         }
       },
