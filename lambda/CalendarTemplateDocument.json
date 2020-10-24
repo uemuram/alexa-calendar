@@ -1422,13 +1422,13 @@
                         "type": "Container",
                         "description": "曜日",
                         "width": "70vw",
-                        "height": "5vh",
+                        "height": "4vh",
                         "direction": "row",
                         "items": [
                             {
                                 "type": "Frame",
                                 "width": "10vw",
-                                "height": "5vh",
+                                "height": "4vh",
                                 "item": [
                                     {
                                         "type": "Text",
@@ -1449,7 +1449,7 @@
                             {
                                 "type": "Frame",
                                 "width": "10vw",
-                                "height": "5vh",
+                                "height": "4vh",
                                 "item": [
                                     {
                                         "type": "Text",
@@ -1470,7 +1470,7 @@
                             {
                                 "type": "Frame",
                                 "width": "10vw",
-                                "height": "5vh",
+                                "height": "4vh",
                                 "item": [
                                     {
                                         "type": "Text",
@@ -1491,7 +1491,7 @@
                             {
                                 "type": "Frame",
                                 "width": "10vw",
-                                "height": "5vh",
+                                "height": "4vh",
                                 "item": [
                                     {
                                         "type": "Text",
@@ -1512,7 +1512,7 @@
                             {
                                 "type": "Frame",
                                 "width": "10vw",
-                                "height": "5vh",
+                                "height": "4vh",
                                 "item": [
                                     {
                                         "type": "Text",
@@ -1533,7 +1533,7 @@
                             {
                                 "type": "Frame",
                                 "width": "10vw",
-                                "height": "5vh",
+                                "height": "4vh",
                                 "item": [
                                     {
                                         "type": "Text",
@@ -1554,7 +1554,7 @@
                             {
                                 "type": "Frame",
                                 "width": "10vw",
-                                "height": "5vh",
+                                "height": "4vh",
                                 "item": [
                                     {
                                         "type": "Text",
@@ -1578,7 +1578,7 @@
                         "type": "Container",
                         "description": "日付け1",
                         "width": "70vw",
-                        "height": "14vh",
+                        "height": "16vh",
                         "direction": "row",
                         "items": [
                             {
@@ -1776,7 +1776,7 @@
                         "type": "Container",
                         "description": "日付け2",
                         "width": "70vw",
-                        "height": "14vh",
+                        "height": "16vh",
                         "direction": "row",
                         "items": [
                             {
@@ -1974,7 +1974,7 @@
                         "type": "Container",
                         "description": "日付け3",
                         "width": "70vw",
-                        "height": "14vh",
+                        "height": "16vh",
                         "direction": "row",
                         "items": [
                             {
@@ -2172,7 +2172,7 @@
                         "type": "Container",
                         "description": "日付け4",
                         "width": "70vw",
-                        "height": "14vh",
+                        "height": "16vh",
                         "direction": "row",
                         "items": [
                             {
@@ -2370,7 +2370,7 @@
                         "type": "Container",
                         "description": "日付け5",
                         "width": "70vw",
-                        "height": "14vh",
+                        "height": "16vh",
                         "direction": "row",
                         "items": [
                             {
@@ -2568,7 +2568,7 @@
                         "type": "Container",
                         "description": "日付け6",
                         "width": "70vw",
-                        "height": "14vh",
+                        "height": "16vh",
                         "direction": "row",
                         "items": [
                             {
