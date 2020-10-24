@@ -32,32 +32,32 @@
                         "type": "Container",
                         "description": "年月",
                         "width": "70vw",
-                        "height": "8vh",
+                        "height": "10vh",
                         "alignItems": "stretch",
                         "direction": "row",
                         "items": [
                             {
                                 "type": "Text",
-                                "width": "35%",
+                                "width": "30%",
                                 "paddingRight": "10dp",
-                                "fontSize": "3vh",
+                                "fontSize": "4vh",
                                 "text": "＜",
                                 "textAlign": "right",
                                 "textAlignVertical": "center"
                             },
                             {
                                 "type": "Text",
-                                "width": "30%",
-                                "fontSize": "3vh",
+                                "width": "40%",
+                                "fontSize": "4vh",
                                 "text": "2020年 10月",
                                 "textAlign": "center",
                                 "textAlignVertical": "center"
                             },
                             {
                                 "type": "Text",
-                                "width": "35%",
+                                "width": "30%",
                                 "paddingLeft": "10dp",
-                                "fontSize": "3vh",
+                                "fontSize": "4vh",
                                 "text": "＞",
                                 "textAlign": "left",
                                 "textAlignVertical": "center"
@@ -224,7 +224,7 @@
                         "type": "Container",
                         "description": "日付け1",
                         "width": "70vw",
-                        "height": "14vh",
+                        "height": "13vh",
                         "direction": "row",
                         "items": [
                             {
@@ -380,7 +380,7 @@
                         "type": "Container",
                         "description": "日付け2",
                         "width": "70vw",
-                        "height": "14vh",
+                        "height": "13vh",
                         "direction": "row",
                         "items": [
                             {
@@ -536,7 +536,7 @@
                         "type": "Container",
                         "description": "日付け3",
                         "width": "70vw",
-                        "height": "14vh",
+                        "height": "13vh",
                         "direction": "row",
                         "items": [
                             {
@@ -692,7 +692,7 @@
                         "type": "Container",
                         "description": "日付け4",
                         "width": "70vw",
-                        "height": "14vh",
+                        "height": "13vh",
                         "direction": "row",
                         "items": [
                             {
@@ -848,7 +848,7 @@
                         "type": "Container",
                         "description": "日付け5",
                         "width": "70vw",
-                        "height": "14vh",
+                        "height": "13vh",
                         "direction": "row",
                         "items": [
                             {
@@ -1004,7 +1004,7 @@
                         "type": "Container",
                         "description": "日付け6",
                         "width": "70vw",
-                        "height": "14vh",
+                        "height": "13vh",
                         "direction": "row",
                         "items": [
                             {
