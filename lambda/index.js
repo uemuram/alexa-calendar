@@ -10,20 +10,46 @@ const LaunchRequestHandler = {
     handle(handlerInput) {
         const speakOutput = '画面サンプルです';
 
-        const aplSample = require('./CalendarTemplate01.json');
+        const aplDocument = require('./CalendarTemplateDocument.json');
+
+        console.log(aplDocument);
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .addDirective({
                 type : 'Alexa.Presentation.APL.RenderDocument',
                 version: '1.0',
-                document: aplSample.document,
-                datasources: aplSample.datasources
+                document: aplDocument,
+                datasources: {}
             })
             // .reprompt(speakOutput)
             .getResponse();
     }
 };
+
+// const LaunchRequestHandler = {
+//     canHandle(handlerInput) {
+//         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
+//     },
+//     handle(handlerInput) {
+//         const speakOutput = '画面サンプルです';
+
+//         const aplSample = require('./CalendarTemplate02.json');
+
+//         console.log(aplSample);
+
+//         return handlerInput.responseBuilder
+//             .speak(speakOutput)
+//             .addDirective({
+//                 type : 'Alexa.Presentation.APL.RenderDocument',
+//                 version: '1.0',
+//                 document: aplSample.document,
+//                 datasources: aplSample.datasources
+//             })
+//             // .reprompt(speakOutput)
+//             .getResponse();
+//     }
+// };
 
 // const LaunchRequestHandler = {
 //     canHandle(handlerInput) {
