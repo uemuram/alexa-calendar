@@ -9,7 +9,9 @@ const LaunchRequestHandler = {
     },
     handle(handlerInput) {
         const speakOutput = '画面サンプルです';
-        const aplSample = require('./BodyTemplate7.json');
+
+        const aplSample = require('./CalendarTemplate01.json');
+
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .addDirective({
@@ -18,10 +20,50 @@ const LaunchRequestHandler = {
                 document: aplSample.document,
                 datasources: aplSample.datasources
             })
-            .reprompt(speakOutput)
+            // .reprompt(speakOutput)
             .getResponse();
     }
 };
+
+// const LaunchRequestHandler = {
+//     canHandle(handlerInput) {
+//         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
+//     },
+//     handle(handlerInput) {
+//         const speakOutput = '画面サンプルです';
+
+//         const aplSample = require('./BodyTemplate7.json');
+
+//         return handlerInput.responseBuilder
+//             .speak(speakOutput)
+//             .addDirective({
+//                 type : 'Alexa.Presentation.APL.RenderDocument',
+//                 version: '1.0',
+//                 document: aplSample.document,
+//                 datasources: aplSample.datasources
+//             })
+//             // .reprompt(speakOutput)
+//             .getResponse();
+//     }
+// };
+
+// const LaunchRequestHandler = {
+//     canHandle(handlerInput) {
+//         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
+//     },
+//     handle(handlerInput) {
+//         const speakOutput = '画面サンプルです';
+
+//         const aplSample = require('./AVG01.json');
+
+//         return handlerInput.responseBuilder
+//             .speak(speakOutput)
+//             .addDirective(aplSample.directives[0])
+//             // .reprompt(speakOutput)
+//             .getResponse();
+//     }
+// };
+
 const HelloWorldIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
