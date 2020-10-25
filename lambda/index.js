@@ -36,11 +36,12 @@ const LaunchRequestHandler = {
         const publicHolidays = util.getPublicHolidays(handlerInput, year);
         console.log('祝日一覧 : ' + JSON.stringify(publicHolidays));
 
-        // TODO: ドキュメントを組み立てる
-        // TODO: ドキュメントに動的変更値を割り当てる
+        // TODO: ドキュメントを組み立てる。左上住にのみ日にちを入れているので、それを増殖させる
         const aplDocument = require('./apl/CalendarTemplateDocument.json');
-        const aplDataSource = require('./apl/CalendarTemplateDataSource.json');
         console.log(JSON.stringify(aplDocument));
+
+        // TODO: ドキュメントに動的変更値を割り当てる
+        const aplDataSource = require('./apl/CalendarTemplateDataSource.json');
 
         // 音声を組み立て
         // TODO: 無音を入れて音声を長くする?
