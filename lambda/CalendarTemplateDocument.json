@@ -17,7 +17,7 @@
     "layouts": {},
     "mainTemplate": {
         "parameters": [
-            "payload"
+            "data"
         ],
         "items": [
             {
@@ -49,7 +49,7 @@
                                 "type": "Text",
                                 "width": "40%",
                                 "fontSize": "4vh",
-                                "text": "2020年 10月",
+                                "text": "${data.yearMonth}",
                                 "textAlign": "center",
                                 "textAlignVertical": "center"
                             },
@@ -1172,7 +1172,7 @@
                                 "type": "Text",
                                 "width": "100%",
                                 "height": "20vh",
-                                "text": "2020/08",
+                                "text": "${data.yearMonth}",
                                 "fontSize": "10vh",
                                 "color": "white",
                                 "textAlign": "center",

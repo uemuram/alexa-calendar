@@ -11,7 +11,9 @@ const LaunchRequestHandler = {
         const speakOutput = '画面サンプルです';
 
         const aplDocument = require('./CalendarTemplateDocument.json');
+        const aplDataSource = require('./CalendarTemplateDataSource.json');
 
+  
         console.log(JSON.stringify(aplDocument));
 
         return handlerInput.responseBuilder
@@ -20,7 +22,7 @@ const LaunchRequestHandler = {
                 type : 'Alexa.Presentation.APL.RenderDocument',
                 version: '1.4',
                 document: aplDocument,
-                datasources: {}
+                datasources: aplDataSource
             })
             // .reprompt(speakOutput)
             .getResponse();
