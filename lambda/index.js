@@ -38,8 +38,8 @@ const LaunchRequestHandler = {
 
         // TODO: ドキュメントを組み立てる
         // TODO: ドキュメントに動的変更値を割り当てる
-        const aplDocument = require('./CalendarTemplateDocument.json');
-        const aplDataSource = require('./CalendarTemplateDataSource.json');
+        const aplDocument = require('./apl/CalendarTemplateDocument.json');
+        const aplDataSource = require('./apl/CalendarTemplateDataSource.json');
         console.log(JSON.stringify(aplDocument));
 
         // 音声を組み立て
