@@ -12,13 +12,13 @@ const LaunchRequestHandler = {
 
         const aplDocument = require('./CalendarTemplateDocument.json');
 
-        console.log(aplDocument);
+        console.log(JSON.stringify(aplDocument));
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .addDirective({
                 type : 'Alexa.Presentation.APL.RenderDocument',
-                version: '1.0',
+                version: '1.4',
                 document: aplDocument,
                 datasources: {}
             })
