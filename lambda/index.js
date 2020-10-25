@@ -3,6 +3,21 @@
 // session persistence, api calls, and more.
 const Alexa = require('ask-sdk-core');
 
+// 画面なしデバイスでの処理
+const NoDisplayRequestHandler = {
+    canHandle(handlerInput) {
+        return !handlerInput.requestEnvelope.context.Viewport;
+    },
+    handle(handlerInput) {
+        return handlerInput.responseBuilder
+            .speak('ご利用ありがとうございます。このスキルは画面表示を伴います。画面つきのデバイスでご利用ください。')
+            .getResponse();
+    },
+};
+
+
+
+// 起動時処理
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -197,11 +212,26 @@ const ErrorHandler = {
     }
 };
 
+// リクエストインターセプター(エラー調査用)
+const RequestLog = {
+    process(handlerInput) {
+        //console.log("REQUEST ENVELOPE = " + JSON.stringify(handlerInput.requestEnvelope));
+        console.log("HANDLER INPUT = " + JSON.stringify(handlerInput));
+        const requestType = Alexa.getRequestType(handlerInput.requestEnvelope);
+        console.log("REQUEST TYPE =  " + requestType);
+        if (requestType === 'IntentRequest') {
+            console.log("INTENT NAME =  " + Alexa.getIntentName(handlerInput.requestEnvelope));
+        }
+        return;
+    }
+};
+
 // The SkillBuilder acts as the entry point for your skill, routing all request and response
 // payloads to the handlers above. Make sure any new handlers or interceptors you've
 // defined are included below. The order matters - they're processed top to bottom.
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
+        NoDisplayRequestHandler,
         LaunchRequestHandler,
         TouchEventHandler,
         // HelloWorldIntentHandler,
@@ -213,4 +243,5 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addErrorHandlers(
         ErrorHandler,
     )
+    .addRequestInterceptors(RequestLog)
     .lambda();
