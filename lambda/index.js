@@ -2,6 +2,8 @@
 // Please visit https://alexa.design/cookbook for additional examples on implementing slots, dialog management,
 // session persistence, api calls, and more.
 const Alexa = require('ask-sdk-core');
+const CommonUtil = require('./CommonUtil.js');
+const util = new CommonUtil();
 
 // 画面なしデバイスでの処理
 const NoDisplayRequestHandler = {
@@ -23,12 +25,26 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speakOutput = '画面サンプルです';
 
+        // 年月(現在日付け)を取得
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1;
+        console.log('対象年月 : ' + year + '年' + month + '月');
+
+        // 対象年月の祝日一覧を取得
+        const publicHolidays = util.getPublicHolidays(handlerInput, year);
+        console.log('祝日一覧 : ' + JSON.stringify(publicHolidays));
+
+        // TODO: ドキュメントを組み立てる
+        // TODO: ドキュメントに動的変更値を割り当てる
         const aplDocument = require('./CalendarTemplateDocument.json');
         const aplDataSource = require('./CalendarTemplateDataSource.json');
-
         console.log(JSON.stringify(aplDocument));
+
+        // 音声を組み立て
+        // TODO: 無音を入れて音声を長くする?
+        const speakOutput = year + '年' + month + '月のカレンダーです';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -43,6 +59,7 @@ const LaunchRequestHandler = {
     }
 };
 
+// 画面タッチ時の処理
 const TouchEventHandler = {
     canHandle(handlerInput) {
         return ((handlerInput.requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent' &&
