@@ -13,18 +13,33 @@ const LaunchRequestHandler = {
         const aplDocument = require('./CalendarTemplateDocument.json');
         const aplDataSource = require('./CalendarTemplateDataSource.json');
 
-  
         console.log(JSON.stringify(aplDocument));
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .addDirective({
-                type : 'Alexa.Presentation.APL.RenderDocument',
+                type: 'Alexa.Presentation.APL.RenderDocument',
                 version: '1.4',
                 document: aplDocument,
                 datasources: aplDataSource
             })
             // .reprompt(speakOutput)
+            .getResponse();
+    }
+};
+
+const TouchEventHandler = {
+    canHandle(handlerInput) {
+        return ((handlerInput.requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent' &&
+            (handlerInput.requestEnvelope.request.source.handler === 'Press' ||
+                handlerInput.requestEnvelope.request.source.handler === 'onPress')));
+    },
+    handle(handlerInput) {
+        // TcouhWrapperのargumentsで指定したパラメータを取得する
+        const speechText = handlerInput.requestEnvelope.request.arguments[0];
+
+        return handlerInput.responseBuilder
+            .speak(speechText)
             .getResponse();
     }
 };
@@ -188,13 +203,14 @@ const ErrorHandler = {
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
+        TouchEventHandler,
         // HelloWorldIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler,
         IntentReflectorHandler, // make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
-        ) 
+    )
     .addErrorHandlers(
         ErrorHandler,
-        )
+    )
     .lambda();

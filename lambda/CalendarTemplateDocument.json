@@ -37,30 +37,55 @@
                         "direction": "row",
                         "items": [
                             {
-                                "type": "Text",
-                                "width": "30%",
-                                "paddingRight": "10dp",
-                                "fontSize": "4vh",
-                                "text": "＜",
-                                "textAlign": "right",
-                                "textAlignVertical": "center"
+                                "type": "TouchWrapper",
+                                "onPress": [
+                                    {
+                                        "type": "SendEvent",
+                                        "arguments": [
+                                            "前の月へ"
+                                        ]
+                                    }
+                                ],
+                                "item": {
+                                    "type": "Text",
+                                    "width": "25vw",
+                                    "height": "10vh",
+                                    "paddingRight": "6dp",
+                                    "fontSize": "4vh",
+                                    "text": "＜",
+                                    "textAlign": "right",
+                                    "textAlignVertical": "center"
+                                }
                             },
                             {
                                 "type": "Text",
-                                "width": "40%",
+                                "width": "20vw",
+                                "height": "10vh",
                                 "fontSize": "4vh",
                                 "text": "${data.yearMonth}",
                                 "textAlign": "center",
                                 "textAlignVertical": "center"
                             },
                             {
-                                "type": "Text",
-                                "width": "30%",
-                                "paddingLeft": "10dp",
-                                "fontSize": "4vh",
-                                "text": "＞",
-                                "textAlign": "left",
-                                "textAlignVertical": "center"
+                                "type": "TouchWrapper",
+                                "onPress": [
+                                    {
+                                        "type": "SendEvent",
+                                        "arguments": [
+                                            "次の月へ"
+                                        ]
+                                    }
+                                ],
+                                "item": {
+                                    "type": "Text",
+                                    "width": "25vw",
+                                    "height": "10vh",
+                                    "paddingLeft": "6dp",
+                                    "fontSize": "4vh",
+                                    "text": "＞",
+                                    "textAlign": "left",
+                                    "textAlignVertical": "center"
+                                }
                             }
                         ]
                     },
@@ -1185,26 +1210,48 @@
                                 "height": "20vh",
                                 "items": [
                                     {
-                                        "type": "Text",
-                                        "width": "50%",
-                                        "height": "100%",
-                                        "text": "＜",
-                                        "fontSize": "10vh",
-                                        "color": "white",
-                                        "textAlign": "center",
-                                        "textAlignVertical": "center",
-                                        "fontWeight": "bold"
+                                        "type": "TouchWrapper",
+                                        "onPress": [
+                                            {
+                                                "type": "SendEvent",
+                                                "arguments": [
+                                                    "前の月へ"
+                                                ]
+                                            }
+                                        ],
+                                        "item": {
+                                            "type": "Text",
+                                            "width": "15vw",
+                                            "height": "20vh",
+                                            "text": "＜",
+                                            "fontSize": "10vh",
+                                            "color": "white",
+                                            "textAlign": "center",
+                                            "textAlignVertical": "center",
+                                            "fontWeight": "bold"
+                                        }
                                     },
                                     {
-                                        "type": "Text",
-                                        "width": "50%",
-                                        "height": "100%",
-                                        "text": "＞",
-                                        "fontSize": "10vh",
-                                        "color": "white",
-                                        "textAlign": "center",
-                                        "textAlignVertical": "center",
-                                        "fontWeight": "bold"
+                                        "type": "TouchWrapper",
+                                        "onPress": [
+                                            {
+                                                "type": "SendEvent",
+                                                "arguments": [
+                                                    "次の月へ"
+                                                ]
+                                            }
+                                        ],
+                                        "item": {
+                                            "type": "Text",
+                                            "width": "15vw",
+                                            "height": "20vh",
+                                            "text": "＞",
+                                            "fontSize": "10vh",
+                                            "color": "white",
+                                            "textAlign": "center",
+                                            "textAlignVertical": "center",
+                                            "fontWeight": "bold"
+                                        }
                                     }
                                 ],
                                 "direction": "row"
