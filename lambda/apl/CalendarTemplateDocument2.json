@@ -252,6 +252,27 @@
                         "height": "13vh",
                         "direction": "row",
                         "items": [
+                            {
+                                "type": "Frame",
+                                "width": "10vw",
+                                "item": [
+                                    {
+                                        "type": "Container",
+                                        "width": "auto",
+                                        "items": [
+                                            {
+                                                "type": "Text",
+                                                "fontSize": "7vh",
+                                                "text": "1",
+                                                "color": "black"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "backgroundColor": "white",
+                                "borderColor": "gray",
+                                "borderWidth": "1"
+                            }
                         ]
                     },
                     {
@@ -547,6 +568,33 @@
                                 "height": "16vh",
                                 "direction": "row",
                                 "items": [
+                                    {
+                                        "type": "Frame",
+                                        "width": "10vw",
+                                        "item": [
+                                            {
+                                                "type": "Container",
+                                                "width": "auto",
+                                                "items": [
+                                                    {
+                                                        "type": "Text",
+                                                        "fontSize": "10vh",
+                                                        "text": "1",
+                                                        "color": "black"
+                                                    },
+                                                    {
+                                                        "type": "Text",
+                                                        "fontSize": "1.4vw",
+                                                        "text": "勤労感謝の日",
+                                                        "color": "red"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "backgroundColor": "white",
+                                        "borderColor": "gray",
+                                        "borderWidth": "1"
+                                    }
                                 ]
                             },
                             {
