@@ -1163,20 +1163,59 @@
                 "type": "Container",
                 "items": [
                     {
-                        "type": "Text",
+                        "type": "Container",
                         "width": "30vw",
-                        "height": "100%",
-                        "text": "2020/08",
-                        "fontSize": "10vh",
-                        "color": "white",
-                        "textAlign": "center",
-                        "textAlignVertical": "center",
-                        "fontWeight": "bold"
+                        "height": "100vh",
+                        "paddingTop": "40dp",
+                        "items": [
+                            {
+                                "type": "Text",
+                                "width": "100%",
+                                "height": "20vh",
+                                "text": "2020/08",
+                                "fontSize": "10vh",
+                                "color": "white",
+                                "textAlign": "center",
+                                "textAlignVertical": "center",
+                                "fontWeight": "bold"
+                            },
+                            {
+                                "type": "Container",
+                                "width": "30vw",
+                                "height": "20vh",
+                                "items": [
+                                    {
+                                        "type": "Text",
+                                        "width": "50%",
+                                        "height": "100%",
+                                        "text": "＜",
+                                        "fontSize": "10vh",
+                                        "color": "white",
+                                        "textAlign": "center",
+                                        "textAlignVertical": "center",
+                                        "fontWeight": "bold"
+                                    },
+                                    {
+                                        "type": "Text",
+                                        "width": "50%",
+                                        "height": "100%",
+                                        "text": "＞",
+                                        "fontSize": "10vh",
+                                        "color": "white",
+                                        "textAlign": "center",
+                                        "textAlignVertical": "center",
+                                        "fontWeight": "bold"
+                                    }
+                                ],
+                                "direction": "row"
+                            }
+                        ],
+                        "alignItems": "center"
                     },
                     {
                         "type": "Container",
                         "width": "70vw",
-                        "height": "100%",
+                        "height": "100vh",
                         "paddingLeft": "60dp",
                         "paddingRight": "60dp",
                         "items": [
