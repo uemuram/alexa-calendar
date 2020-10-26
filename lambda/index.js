@@ -17,8 +17,6 @@ const NoDisplayRequestHandler = {
     },
 };
 
-
-
 // 起動時処理
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -36,12 +34,18 @@ const LaunchRequestHandler = {
         const publicHolidays = util.getPublicHolidays(handlerInput, year);
         console.log('祝日一覧 : ' + JSON.stringify(publicHolidays));
 
-        // TODO: ドキュメントを組み立てる。左上住にのみ日にちを入れているので、それを増殖させる
-        const aplDocument = require('./apl/CalendarTemplateDocument.json');
-        console.log(JSON.stringify(aplDocument));
+        // ドキュメントを組み立てる。左上済にのみ日にちを入れているので、それを増殖させる
+        let aplDocument = require('./apl/CalendarTemplateDocument.json');
+        aplDocument = util.setupTemplateDocument(handlerInput, aplDocument);
+        // console.log(JSON.stringify(aplDocument));
 
         // TODO: ドキュメントに動的変更値を割り当てる
-        const aplDataSource = require('./apl/CalendarTemplateDataSource.json');
+        let aplDataSource = require('./apl/CalendarTemplateDataSource.json');
+        // 仮の設定
+        for (let i = 0; i < 42; i++) {
+            aplDataSource.data.dateInfo[i] = { "date": i }
+        }
+
 
         // 音声を組み立て
         // TODO: 無音を入れて音声を長くする?

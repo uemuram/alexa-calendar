@@ -59,17 +59,42 @@ class CommonUtil {
                 holidays[day] = "振替休日";
             }
         }
-
         return holidays;
     }
 
+    setupTemplateDocument(handlerInput, aplDocument) {
+        // 丸型かどうか判定
+        let round = false;
+        if (handlerInput.requestEnvelope.context.Viewport.shape == 'ROUND') {
+            round = true;
+        }
 
+        // 複製対象となるドキュメント(1日分)
+        let dateDocument;
+        if (round) {
+            dateDocument = aplDocument.mainTemplate.items[0].items[2].items[0];
+        } else {
+            dateDocument = aplDocument.mainTemplate.items[1].items[1].items[1].items[0];
+        }
+        const dateDocumentStr = JSON.stringify(dateDocument);
 
-
-
-
-
-
+        // 日付けドキュメントの複製処理
+        let dateNum = 0;
+        for (let i = 0; i < 6; i++) {
+            for (let j = 0; j < 7; j++) {
+                // 日付けインデックス([0])を置き換える
+                let newDateDocument = JSON.parse(dateDocumentStr.replace(/\[0\]/g, '[' + dateNum + ']'));
+                // 置き換えた日付け箇所をテンプレートに当てはめる
+                if (round) {
+                    aplDocument.mainTemplate.items[0].items[i + 2].items[j] = newDateDocument;
+                } else {
+                    aplDocument.mainTemplate.items[1].items[1].items[i + 1].items[j] = newDateDocument;
+                }
+                dateNum++;
+            }
+        }
+        return aplDocument;
+    }
 }
 
 module.exports = CommonUtil;

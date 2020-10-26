@@ -263,7 +263,7 @@
                                             {
                                                 "type": "Text",
                                                 "fontSize": "7vh",
-                                                "text": "1",
+                                                "text": "${data.dateInfo[0].date}",
                                                 "color": "black"
                                             }
                                         ]
@@ -579,7 +579,7 @@
                                                     {
                                                         "type": "Text",
                                                         "fontSize": "10vh",
-                                                        "text": "1",
+                                                        "text": "${data.dateInfo[0].date}",
                                                         "color": "black"
                                                     },
                                                     {
