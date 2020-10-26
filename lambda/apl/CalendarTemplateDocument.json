@@ -402,8 +402,6 @@
                         "type": "Container",
                         "width": "70vw",
                         "height": "100vh",
-                        "paddingLeft": "60dp",
-                        "paddingRight": "60dp",
                         "items": [
                             {
                                 "type": "Container",
