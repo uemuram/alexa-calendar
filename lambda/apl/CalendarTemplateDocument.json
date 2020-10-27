@@ -62,7 +62,7 @@
                                 "width": "20vw",
                                 "height": "10vh",
                                 "fontSize": "4vh",
-                                "text": "${data.yearMonth}",
+                                "text": "${data.year}/${data.month}",
                                 "textAlign": "center",
                                 "textAlignVertical": "center"
                             },
@@ -336,7 +336,7 @@
                                 "type": "Text",
                                 "width": "100%",
                                 "height": "20vh",
-                                "text": "${data.yearMonth}",
+                                "text": "${data.year}/${data.month}",
                                 "fontSize": "10vh",
                                 "color": "white",
                                 "textAlign": "center",
