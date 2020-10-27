@@ -41,10 +41,11 @@ const LaunchRequestHandler = {
 
         // TODO: ドキュメントに動的変更値を割り当てる
         let aplDataSource = require('./apl/CalendarTemplateDataSource.json');
-        // 仮の設定
-        for (let i = 0; i < 42; i++) {
-            aplDataSource.data.dateInfo[i] = { "date": i }
-        }
+        aplDataSource = util.setupTemplateDataSource(handlerInput, aplDataSource, year, month);
+        // // 仮の設定
+        // for (let i = 0; i < 42; i++) {
+        //     aplDataSource.data.dateInfo[i] = { "date": i }
+        // }
 
 
         // 音声を組み立て

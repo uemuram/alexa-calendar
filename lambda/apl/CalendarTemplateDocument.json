@@ -264,12 +264,12 @@
                                                 "type": "Text",
                                                 "fontSize": "7vh",
                                                 "text": "${data.dateInfo[0].date}",
-                                                "color": "black"
+                                                "color": "${data.dateInfo[0].dateCharColor}"
                                             }
                                         ]
                                     }
                                 ],
-                                "backgroundColor": "white",
+                                "backgroundColor": "${data.dateInfo[0].backgroundColor}",
                                 "borderColor": "gray",
                                 "borderWidth": "1"
                             }
@@ -578,7 +578,7 @@
                                                         "type": "Text",
                                                         "fontSize": "10vh",
                                                         "text": "${data.dateInfo[0].date}",
-                                                        "color": "black"
+                                                        "color": "${data.dateInfo[0].dateCharColor}"
                                                     },
                                                     {
                                                         "type": "Text",
@@ -589,7 +589,7 @@
                                                 ]
                                             }
                                         ],
-                                        "backgroundColor": "white",
+                                        "backgroundColor": "${data.dateInfo[0].backgroundColor}",
                                         "borderColor": "gray",
                                         "borderWidth": "1"
                                     }

@@ -95,6 +95,43 @@ class CommonUtil {
         }
         return aplDocument;
     }
+
+    setupTemplateDataSource(handlerInput, aplDataSource, year, month) {
+        let data = aplDataSource.data;
+
+        // 年月
+        data.year = year;
+        data.month = month;
+
+        // -- 日付け関連データの整備 --
+        // カレンダー左上になる日付け(その月の1日 - 曜日)
+        let refDate = new Date(year, month - 1, 1);
+        refDate.setDate(refDate.getDate() - refDate.getDay());
+
+        // 日付けごとのデータセット
+        for (let i = 0; i < 42; i++) {
+            // 日付け
+            data.dateInfo[i] = { "date": refDate.getDate() };
+
+            // 文字色
+            if (refDate.getDay() == 0) {
+                // 日曜
+                data.dateInfo[i].dateCharColor = 'red';
+            } else if (refDate.getDay() == 6) {
+                // 土曜
+                data.dateInfo[i].dateCharColor = 'blue';
+            } else {
+                // 平日
+                data.dateInfo[i].dateCharColor = 'black';
+            }
+            data.dateInfo[i].backgroundColor = 'white';
+
+            // 1日加算
+            refDate.setDate(refDate.getDate() + 1);
+        }
+
+        return aplDataSource;
+    }
 }
 
 module.exports = CommonUtil;

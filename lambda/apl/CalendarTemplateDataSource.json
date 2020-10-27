@@ -4,7 +4,9 @@
         "month": 9,
         "dateInfo": [
             {
-                "date": 1
+                "date": 1,
+                "dateCharColor": "black",
+                "backgroundColor": "white"
             }
         ]
     }
