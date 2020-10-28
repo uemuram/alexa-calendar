@@ -42,15 +42,12 @@ const LaunchRequestHandler = {
         // TODO: ドキュメントに動的変更値を割り当てる
         let aplDataSource = require('./apl/CalendarTemplateDataSource.json');
         aplDataSource = util.setupTemplateDataSource(handlerInput, aplDataSource, year, month);
-        // // 仮の設定
-        // for (let i = 0; i < 42; i++) {
-        //     aplDataSource.data.dateInfo[i] = { "date": i }
-        // }
 
-
-        // 音声を組み立て
-        // TODO: 無音を入れて音声を長くする?
-        const speakOutput = year + '年' + month + '月のカレンダーです';
+        // 音声を組み立て。無音を入れることにより表示を長くする。(音声長さ + 30秒表示)
+        const speakOutput = '<speak>'
+            + year + '年' + month + '月のカレンダーです'
+            + '<break time="10s"/><break time="10s"/><break time="10s"/>'
+            + '</speak>';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
