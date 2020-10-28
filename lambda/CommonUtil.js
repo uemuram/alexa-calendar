@@ -62,6 +62,19 @@ class CommonUtil {
         return holidays;
     }
 
+    // 同じ日付けかどうか判定する
+    isSameDate(date1, date2) {
+        if (
+            (date1.getFullYear() == date2.getFullYear())
+            && (date1.getMonth() == date2.getMonth())
+            && (date1.getDate() == date2.getDate())
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     setupTemplateDocument(handlerInput, aplDocument) {
         // 丸型かどうか判定
         let round = false;
@@ -96,7 +109,7 @@ class CommonUtil {
         return aplDocument;
     }
 
-    setupTemplateDataSource(handlerInput, aplDataSource, year, month) {
+    setupTemplateDataSource(handlerInput, aplDataSource, year, month, publicHolidays) {
         let data = aplDataSource.data;
 
         // 年月
@@ -107,6 +120,9 @@ class CommonUtil {
         // カレンダー左上になる日付け(その月の1日 - 曜日)
         let refDate = new Date(year, month - 1, 1);
         refDate.setDate(refDate.getDate() - refDate.getDay());
+        // 本日日付け(日本時間にするために+9時間する)
+        let today = new Date();
+        today.setHours(today.getHours() + 9);
 
         // 日付けごとのデータセット
         for (let i = 0; i < 42; i++) {
@@ -115,7 +131,7 @@ class CommonUtil {
                 ? true
                 : false;
 
-                // 日付け
+            // 日付け
             data.dateInfo[i] = { "date": refDate.getDate() };
 
             // 文字サイズ
@@ -149,7 +165,15 @@ class CommonUtil {
                     data.dateInfo[i].dateCharColor = 'darkgray';
                 }
             }
-            data.dateInfo[i].backgroundColor = 'white';
+
+            // 背景色
+            if (this.isSameDate(today, refDate)) {
+                // 今日の場合
+                data.dateInfo[i].backgroundColor = 'yellow';
+            } else {
+                // 今日以外の場合
+                data.dateInfo[i].backgroundColor = 'white';
+            }
 
             // 1日加算
             refDate.setDate(refDate.getDate() + 1);

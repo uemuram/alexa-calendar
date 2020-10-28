@@ -31,6 +31,7 @@ const LaunchRequestHandler = {
         console.log('対象年月 : ' + year + '年' + month + '月');
 
         // 対象年月の祝日一覧を取得
+        // TODO: 休日取得の実装
         const publicHolidays = util.getPublicHolidays(handlerInput, year);
         console.log('祝日一覧 : ' + JSON.stringify(publicHolidays));
 
@@ -40,13 +41,14 @@ const LaunchRequestHandler = {
         // console.log(JSON.stringify(aplDocument));
 
         // TODO: ドキュメントに動的変更値を割り当てる
+        // TODO: 休日表示
         let aplDataSource = require('./apl/CalendarTemplateDataSource.json');
-        aplDataSource = util.setupTemplateDataSource(handlerInput, aplDataSource, year, month);
+        aplDataSource = util.setupTemplateDataSource(handlerInput, aplDataSource, year, month, publicHolidays);
 
         // 音声を組み立て。無音を入れることにより表示を長くする。(音声長さ + 30秒表示)
         const speakOutput = '<speak>'
             + year + '年' + month + '月のカレンダーです'
-            + '<break time="10s"/><break time="10s"/><break time="10s"/>'
+            + '<break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/>'
             + '</speak>';
 
         return handlerInput.responseBuilder
