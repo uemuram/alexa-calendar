@@ -262,9 +262,10 @@
                                         "items": [
                                             {
                                                 "type": "Text",
-                                                "fontSize": "7vh",
+                                                "fontSize": "${data.dateInfo[0].fontSizeRound}",
                                                 "text": "${data.dateInfo[0].date}",
-                                                "color": "${data.dateInfo[0].dateCharColor}"
+                                                "color": "${data.dateInfo[0].dateCharColor}",
+                                                "textAlignVertical": "center"
                                             }
                                         ]
                                     }
@@ -281,8 +282,7 @@
                         "width": "70vw",
                         "height": "13vh",
                         "direction": "row",
-                        "items": [
-                        ]
+                        "items": []
                     },
                     {
                         "type": "Container",
@@ -290,8 +290,7 @@
                         "width": "70vw",
                         "height": "13vh",
                         "direction": "row",
-                        "items": [
-                        ]
+                        "items": []
                     },
                     {
                         "type": "Container",
@@ -299,8 +298,7 @@
                         "width": "70vw",
                         "height": "13vh",
                         "direction": "row",
-                        "items": [
-                        ]
+                        "items": []
                     },
                     {
                         "type": "Container",
@@ -308,8 +306,7 @@
                         "width": "70vw",
                         "height": "13vh",
                         "direction": "row",
-                        "items": [
-                        ]
+                        "items": []
                     },
                     {
                         "type": "Container",
@@ -317,8 +314,7 @@
                         "width": "70vw",
                         "height": "13vh",
                         "direction": "row",
-                        "items": [
-                        ]
+                        "items": []
                     }
                 ],
                 "alignItems": "center"
@@ -576,15 +572,18 @@
                                                 "items": [
                                                     {
                                                         "type": "Text",
-                                                        "fontSize": "10vh",
+                                                        "height": "10vh",
+                                                        "fontSize": "${data.dateInfo[0].fontSize}",
                                                         "text": "${data.dateInfo[0].date}",
                                                         "color": "${data.dateInfo[0].dateCharColor}"
                                                     },
                                                     {
                                                         "type": "Text",
+                                                        "height": "6vh",
                                                         "fontSize": "1.4vw",
                                                         "text": "勤労感謝の日",
-                                                        "color": "red"
+                                                        "color": "red",
+                                                        "textAlignVertical": "bottom"
                                                     }
                                                 ]
                                             }
@@ -601,8 +600,7 @@
                                 "width": "70vw",
                                 "height": "16vh",
                                 "direction": "row",
-                                "items": [
-                                ]
+                                "items": []
                             },
                             {
                                 "type": "Container",
@@ -610,8 +608,7 @@
                                 "width": "70vw",
                                 "height": "16vh",
                                 "direction": "row",
-                                "items": [
-                                ]
+                                "items": []
                             },
                             {
                                 "type": "Container",
@@ -619,8 +616,7 @@
                                 "width": "70vw",
                                 "height": "16vh",
                                 "direction": "row",
-                                "items": [
-                                ]
+                                "items": []
                             },
                             {
                                 "type": "Container",
@@ -628,8 +624,7 @@
                                 "width": "70vw",
                                 "height": "16vh",
                                 "direction": "row",
-                                "items": [
-                                ]
+                                "items": []
                             },
                             {
                                 "type": "Container",
@@ -637,8 +632,7 @@
                                 "width": "70vw",
                                 "height": "16vh",
                                 "direction": "row",
-                                "items": [
-                                ]
+                                "items": []
                             }
                         ],
                         "alignItems": "center"

@@ -110,19 +110,44 @@ class CommonUtil {
 
         // 日付けごとのデータセット
         for (let i = 0; i < 42; i++) {
-            // 日付け
+            // 対象月かどうか
+            let inDate = month == refDate.getMonth() + 1
+                ? true
+                : false;
+
+                // 日付け
             data.dateInfo[i] = { "date": refDate.getDate() };
+
+            // 文字サイズ
+            data.dateInfo[i].fontSize = inDate
+                ? "10vh"
+                : "6vh";
+            data.dateInfo[i].fontSizeRound = inDate
+                ? "8vh"
+                : "5vh";
 
             // 文字色
             if (refDate.getDay() == 0) {
                 // 日曜
-                data.dateInfo[i].dateCharColor = 'red';
+                if (inDate) {
+                    data.dateInfo[i].dateCharColor = 'red';
+                } else {
+                    data.dateInfo[i].dateCharColor = 'pink';
+                }
             } else if (refDate.getDay() == 6) {
                 // 土曜
-                data.dateInfo[i].dateCharColor = 'blue';
+                if (inDate) {
+                    data.dateInfo[i].dateCharColor = 'blue';
+                } else {
+                    data.dateInfo[i].dateCharColor = 'lightblue';
+                }
             } else {
                 // 平日
-                data.dateInfo[i].dateCharColor = 'black';
+                if (inDate) {
+                    data.dateInfo[i].dateCharColor = 'black';
+                } else {
+                    data.dateInfo[i].dateCharColor = 'darkgray';
+                }
             }
             data.dateInfo[i].backgroundColor = 'white';
 
