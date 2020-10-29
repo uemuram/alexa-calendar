@@ -24,6 +24,8 @@ const LaunchRequestHandler = {
     },
     handle(handlerInput) {
 
+        // TODO: タッチ処理時の画面遷移を実装
+
         // 年月(現在日付け)を取得
         const currentDate = new Date();
         const year = currentDate.getFullYear();
@@ -40,8 +42,7 @@ const LaunchRequestHandler = {
         aplDocument = util.setupTemplateDocument(handlerInput, aplDocument);
         // console.log(JSON.stringify(aplDocument));
 
-        // TODO: ドキュメントに動的変更値を割り当てる
-        // TODO: 休日表示
+        // ドキュメントに動的変更値を割り当てる
         let aplDataSource = require('./apl/CalendarTemplateDataSource.json');
         aplDataSource = util.setupTemplateDataSource(handlerInput, aplDataSource, year, month, publicHolidays);
 
