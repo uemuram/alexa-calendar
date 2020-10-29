@@ -8,7 +8,9 @@
                 "dateCharColor": "black",
                 "backgroundColor": "white",
                 "fontSize": "10vh",
-                "fontSizeRound": "8vh"
+                "fontSizeRound": "8vh",
+                "publicHolidayText": "建国記念の日",
+                "publicHolidayTextColor": "red"
             }
         ]
     }

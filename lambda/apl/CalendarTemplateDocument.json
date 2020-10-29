@@ -581,8 +581,8 @@
                                                         "type": "Text",
                                                         "height": "6vh",
                                                         "fontSize": "1.4vw",
-                                                        "text": "勤労感謝の日",
-                                                        "color": "red",
+                                                        "text": "${data.dateInfo[0].publicHolidayText}",
+                                                        "color": "${data.dateInfo[0].publicHolidayTextColor}",
                                                         "textAlignVertical": "bottom"
                                                     }
                                                 ]

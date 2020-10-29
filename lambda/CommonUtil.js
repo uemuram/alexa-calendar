@@ -75,6 +75,19 @@ class CommonUtil {
         }
     }
 
+    // 日付けをYYYY-MM-DD形式にフォーマットする
+    formatDate(date) {
+        return date.getFullYear()
+            + '-' + ('0' + (date.getMonth() + 1)).slice(-2)
+            + '-' + ('0' + date.getDate()).slice(-2);
+    }
+
+    // 祝日を返す。祝日でない場合はnullを返す
+    getPublicHolidayText(date, publicHolidays) {
+        return publicHolidays[this.formatDate(date)];
+    }
+
+    // テンプレートドキュメントをセットアップする
     setupTemplateDocument(handlerInput, aplDocument) {
         // 丸型かどうか判定
         let round = false;
@@ -109,6 +122,7 @@ class CommonUtil {
         return aplDocument;
     }
 
+    // テンプレートデータソースをセットアップする
     setupTemplateDataSource(handlerInput, aplDataSource, year, month, publicHolidays) {
         let data = aplDataSource.data;
 
@@ -120,6 +134,7 @@ class CommonUtil {
         // カレンダー左上になる日付け(その月の1日 - 曜日)
         let refDate = new Date(year, month - 1, 1);
         refDate.setDate(refDate.getDate() - refDate.getDay());
+
         // 本日日付け(日本時間にするために+9時間する)
         let today = new Date();
         today.setHours(today.getHours() + 9);
@@ -127,43 +142,37 @@ class CommonUtil {
         // 日付けごとのデータセット
         for (let i = 0; i < 42; i++) {
             // 対象月かどうか
-            let inDate = month == refDate.getMonth() + 1
-                ? true
-                : false;
+            let inDate = month == refDate.getMonth() + 1 ? true : false;
 
             // 日付け
             data.dateInfo[i] = { "date": refDate.getDate() };
 
             // 文字サイズ
-            data.dateInfo[i].fontSize = inDate
-                ? "10vh"
-                : "6vh";
-            data.dateInfo[i].fontSizeRound = inDate
-                ? "8vh"
-                : "5vh";
+            // 四角画面用
+            data.dateInfo[i].fontSize = inDate ? "10vh" : "6vh";
+            // 丸画面用
+            data.dateInfo[i].fontSizeRound = inDate ? "8vh" : "5vh";
 
-            // 文字色
-            if (refDate.getDay() == 0) {
+            // 祝日設定
+            let publicHolidayText = this.getPublicHolidayText(refDate, publicHolidays);
+            // 祝日名
+            data.dateInfo[i].publicHolidayText = publicHolidayText;
+            // 祝日名の、文字色
+            data.dateInfo[i].publicHolidayTextColor = inDate ? 'red' : 'palevioletred';
+
+            // 日付けの文字色
+            if (publicHolidayText) {
+                // 祝日
+                data.dateInfo[i].dateCharColor = inDate ? 'red' : 'palevioletred';
+            } else if (refDate.getDay() == 0) {
                 // 日曜
-                if (inDate) {
-                    data.dateInfo[i].dateCharColor = 'red';
-                } else {
-                    data.dateInfo[i].dateCharColor = 'pink';
-                }
+                data.dateInfo[i].dateCharColor = inDate ? 'red' : 'palevioletred';
             } else if (refDate.getDay() == 6) {
                 // 土曜
-                if (inDate) {
-                    data.dateInfo[i].dateCharColor = 'blue';
-                } else {
-                    data.dateInfo[i].dateCharColor = 'lightblue';
-                }
+                data.dateInfo[i].dateCharColor = inDate ? 'blue' : 'cornflowerblue';
             } else {
                 // 平日
-                if (inDate) {
-                    data.dateInfo[i].dateCharColor = 'black';
-                } else {
-                    data.dateInfo[i].dateCharColor = 'darkgray';
-                }
+                data.dateInfo[i].dateCharColor = inDate ? 'black' : 'darkgray';
             }
 
             // 背景色
