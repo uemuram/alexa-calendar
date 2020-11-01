@@ -28,9 +28,7 @@ class CommonUtil {
         let attr = h.attributesManager.getSessionAttributes();
         attr[key] = value
         h.attributesManager.setSessionAttributes(attr);
-
-        console.log("セッション保存 : " + JSON.stringify(attr));
-
+        console.log("セッション保存 : " + JSON.stringify({ 'key': key, 'value': value }));
     }
 
     // パラメータストアから値を取得(再利用のために取得後にセッションに格納)
@@ -42,10 +40,7 @@ class CommonUtil {
             console.log(key + ' : ' + parameter + '(セッションから取得)');
         } else {
             const ssm = new AWS.SSM();
-            const request = {
-                Name: key,
-                WithDecryption: true
-            };
+            const request = { Name: key, WithDecryption: true };
             const response = await ssm.getParameter(request).promise();
             parameter = response.Parameter.Value;
             console.log(key + ' : ' + parameter + '(SSMから取得)');
@@ -55,29 +50,9 @@ class CommonUtil {
         return parameter;
     }
 
-    // // 日付情報を取得
-    // async getPublicHolidaysFromS3(handlerInput, year) {
-    //     const s3 = new AWS.S3();
-    //     const response = await s3.getObject(
-    //         {
-    //             Bucket: 'mudev-alexa-private',
-    //             Key: 'calendar/dateinfo/publicHolidays/2020.json'
-    //         }
-    //     ).promise();
-
-    //     const publicHolidays = JSON.parse(response.Body.toString('utf-8'));
-    //     console.log(publicHolidays);
-
-    //     this.setSessionValue(handlerInput, "PUBLIC_HOLIDAYS_" + year, publicHolidays);
-
-    //     return publicHolidays;
-    //     //        return JSON.parse(publicHolidays);
-    // }
-
     // 該当年月の祝日一覧を取得する
     // 非同期処理を含むので、呼び出し元ではawaitを付けて呼び出すこと
     async getPublicHolidays(handlerInput, year) {
-
         // 保存キー
         const publicHolidaysKey = "PUBLIC-HOLIDAYS-" + year;
 
