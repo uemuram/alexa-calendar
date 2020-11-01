@@ -33,65 +33,19 @@
                         "description": "年月",
                         "width": "70vw",
                         "height": "10vh",
-                        "alignItems": "stretch",
+                        "alignItems": "center",
                         "direction": "row",
                         "items": [
                             {
-                                "type": "TouchWrapper",
-                                "onPress": [
-                                    {
-                                        "type": "SendEvent",
-                                        "arguments": [
-                                            "transPrevMonth",
-                                            "${data.year}",
-                                            "${data.month}"
-                                        ]
-                                    }
-                                ],
-                                "item": {
-                                    "type": "Text",
-                                    "width": "25vw",
-                                    "height": "10vh",
-                                    "paddingRight": "6dp",
-                                    "fontSize": "4vh",
-                                    "text": "＜",
-                                    "textAlign": "right",
-                                    "textAlignVertical": "center"
-                                }
-                            },
-                            {
                                 "type": "Text",
-                                "width": "20vw",
                                 "height": "10vh",
-                                "fontSize": "4vh",
-                                "text": "${data.year}/${data.month}",
+                                "fontSize": "5vh",
+                                "text": "${data.year}年${data.month}月",
                                 "textAlign": "center",
                                 "textAlignVertical": "center"
-                            },
-                            {
-                                "type": "TouchWrapper",
-                                "onPress": [
-                                    {
-                                        "type": "SendEvent",
-                                        "arguments": [
-                                            "transNextMonth",
-                                            "${data.year}",
-                                            "${data.month}"
-                                        ]
-                                    }
-                                ],
-                                "item": {
-                                    "type": "Text",
-                                    "width": "25vw",
-                                    "height": "10vh",
-                                    "paddingLeft": "6dp",
-                                    "fontSize": "4vh",
-                                    "text": "＞",
-                                    "textAlign": "left",
-                                    "textAlignVertical": "center"
-                                }
                             }
-                        ]
+                        ],
+                        "justifyContent": "center"
                     },
                     {
                         "type": "Container",
@@ -373,80 +327,6 @@
                                 "textAlign": "center",
                                 "textAlignVertical": "center",
                                 "fontWeight": "bold"
-                            },
-                            {
-                                "type": "Container",
-                                "width": "30vw",
-                                "height": "10vh",
-                                "items": [
-                                    {
-                                        "type": "Frame",
-                                        "borderColor": "gray",
-                                        "borderWidth": "1",
-                                        "borderRadius": "20",
-                                        "item": [
-                                            {
-                                                "type": "TouchWrapper",
-                                                "onPress": [
-                                                    {
-                                                        "type": "SendEvent",
-                                                        "arguments": [
-                                                            "transPrevMonth",
-                                                            "${data.year}",
-                                                            "${data.month}"
-                                                        ]
-                                                    }
-                                                ],
-                                                "item": {
-                                                    "type": "Text",
-                                                    "width": "14vw",
-                                                    "height": "9vh",
-                                                    "text": "< ${data.prevMonth}月",
-                                                    "fontSize": "4vh",
-                                                    "color": "white",
-                                                    "textAlign": "center",
-                                                    "textAlignVertical": "center",
-                                                    "fontWeight": "bold"
-                                                }
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "Frame",
-                                        "borderColor": "gray",
-                                        "borderWidth": "1",
-                                        "borderRadius": "20",
-                                        "item": [
-                                            {
-                                                "type": "TouchWrapper",
-                                                "onPress": [
-                                                    {
-                                                        "type": "SendEvent",
-                                                        "arguments": [
-                                                            "transNextMonth",
-                                                            "${data.year}",
-                                                            "${data.month}"
-                                                        ]
-                                                    }
-                                                ],
-                                                "item": {
-                                                    "type": "Text",
-                                                    "width": "14vw",
-                                                    "height": "9vh",
-                                                    "text": "${data.nextMonth}月 >",
-                                                    "fontSize": "4vh",
-                                                    "color": "white",
-                                                    "textAlign": "center",
-                                                    "textAlignVertical": "center",
-                                                    "fontWeight": "bold"
-                                                }
-                                            }
-                                        ]
-                                    }
-                                ],
-                                "direction": "row",
-                                "alignItems": "center",
-                                "justifyContent": "center"
                             }
                         ],
                         "alignItems": "center"
