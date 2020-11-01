@@ -373,54 +373,72 @@
                             {
                                 "type": "Container",
                                 "width": "30vw",
-                                "height": "20vh",
+                                "height": "10vh",
                                 "items": [
                                     {
-                                        "type": "TouchWrapper",
-                                        "onPress": [
+                                        "type": "Frame",
+                                        "borderColor": "gray",
+                                        "borderWidth": "1",
+                                        "borderRadius": "20",
+                                        "item": [
                                             {
-                                                "type": "SendEvent",
-                                                "arguments": [
-                                                    "前の月へ"
-                                                ]
+                                                "type": "TouchWrapper",
+                                                "onPress": [
+                                                    {
+                                                        "type": "SendEvent",
+                                                        "arguments": [
+                                                            "前の月へ"
+                                                        ]
+                                                    }
+                                                ],
+                                                "item": {
+                                                    "type": "Text",
+                                                    "width": "14vw",
+                                                    "height": "9vh",
+                                                    "text": "< 10月",
+                                                    "fontSize": "4vh",
+                                                    "color": "white",
+                                                    "textAlign": "center",
+                                                    "textAlignVertical": "center",
+                                                    "fontWeight": "bold"
+                                                }
                                             }
-                                        ],
-                                        "item": {
-                                            "type": "Text",
-                                            "width": "15vw",
-                                            "height": "20vh",
-                                            "text": "＜",
-                                            "fontSize": "10vh",
-                                            "color": "white",
-                                            "textAlign": "center",
-                                            "textAlignVertical": "center",
-                                            "fontWeight": "bold"
-                                        }
+                                        ]
                                     },
                                     {
-                                        "type": "TouchWrapper",
-                                        "onPress": [
+                                        "type": "Frame",
+                                        "borderColor": "gray",
+                                        "borderWidth": "1",
+                                        "borderRadius": "20",
+                                        "item": [
                                             {
-                                                "type": "SendEvent",
-                                                "arguments": [
-                                                    "次の月へ"
-                                                ]
+                                                "type": "TouchWrapper",
+                                                "onPress": [
+                                                    {
+                                                        "type": "SendEvent",
+                                                        "arguments": [
+                                                            "次の月へ"
+                                                        ]
+                                                    }
+                                                ],
+                                                "item": {
+                                                    "type": "Text",
+                                                    "width": "14vw",
+                                                    "height": "9vh",
+                                                    "text": "11月 >",
+                                                    "fontSize": "4vh",
+                                                    "color": "white",
+                                                    "textAlign": "center",
+                                                    "textAlignVertical": "center",
+                                                    "fontWeight": "bold"
+                                                }
                                             }
-                                        ],
-                                        "item": {
-                                            "type": "Text",
-                                            "width": "15vw",
-                                            "height": "20vh",
-                                            "text": "＞",
-                                            "fontSize": "10vh",
-                                            "color": "white",
-                                            "textAlign": "center",
-                                            "textAlignVertical": "center",
-                                            "fontWeight": "bold"
-                                        }
+                                        ]
                                     }
                                 ],
-                                "direction": "row"
+                                "direction": "row",
+                                "alignItems": "center",
+                                "justifyContent": "center"
                             }
                         ],
                         "alignItems": "center"
