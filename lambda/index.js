@@ -36,7 +36,6 @@ const LaunchRequestHandler = {
         console.log('対象年月 : ' + year + '年' + month + '月');
 
         // 対象年月の祝日一覧を取得(非同期アクセスがあるのでawaitで処理環境を待つ)
-        // TODO: 休日取得の実装
         const publicHolidays = await util.getPublicHolidays(handlerInput, year);
         console.log('祝日一覧 : ' + JSON.stringify(publicHolidays));
 
@@ -75,16 +74,45 @@ const TouchEventHandler = {
             (handlerInput.requestEnvelope.request.source.handler === 'Press' ||
                 handlerInput.requestEnvelope.request.source.handler === 'onPress')));
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         // TcouhWrapperのargumentsで指定したパラメータを取得する
-        const speechText = handlerInput.requestEnvelope.request.arguments[0];
+        const speakOutput = handlerInput.requestEnvelope.request.arguments[0];
 
-        // console.log("画面タッチ");
-        // console.log(util.getSessionValue(handlerInput, "dateInfoS3Path"));
-        // console.log("xxx");
+
+        // 年月(現在日付け)を取得(日本時間にするために+9している)
+        const currentDate = new Date();
+        currentDate.setHours(currentDate.getHours() + 9);
+        // const year = currentDate.getFullYear();
+        // const month = currentDate.getMonth() + 1;
+        const year = 2021;
+        const month = 1;
+
+        console.log('対象年月 : ' + year + '年' + month + '月');
+
+        // 対象年月の祝日一覧を取得(非同期アクセスがあるのでawaitで処理環境を待つ)
+        const publicHolidays = await util.getPublicHolidays(handlerInput, year);
+        console.log('祝日一覧 : ' + JSON.stringify(publicHolidays));
+
+        // ドキュメントを組み立てる。左上済にのみ日にちを入れているので、それを増殖させる
+        let aplDocument = require('./apl/CalendarTemplateDocument.json');
+        aplDocument = util.setupTemplateDocument(handlerInput, aplDocument);
+        // console.log(JSON.stringify(aplDocument));
+
+        // ドキュメントに動的変更値を割り当てる
+        let aplDataSource = require('./apl/CalendarTemplateDataSource.json');
+        aplDataSource = util.setupTemplateDataSource(handlerInput, aplDataSource, year, month, publicHolidays);
+
+
 
         return handlerInput.responseBuilder
-            .speak(speechText)
+            .speak(speakOutput)
+            .addDirective({
+                type: 'Alexa.Presentation.APL.RenderDocument',
+                version: '1.4',
+                document: aplDocument,
+                datasources: aplDataSource
+            })
+            // .reprompt(speakOutput)
             .getResponse();
     }
 };

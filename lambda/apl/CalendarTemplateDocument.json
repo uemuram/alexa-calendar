@@ -326,13 +326,44 @@
                         "type": "Container",
                         "width": "30vw",
                         "height": "100vh",
-                        "paddingTop": "40dp",
+                        "paddingTop": "10dp",
                         "items": [
+                            {
+                                "type": "Container",
+                                "width": "30vw",
+                                "height": "11vh",
+                                "items": [
+                                    {
+                                        "type": "Text",
+                                        "width": "16vw",
+                                        "height": "100%",
+                                        "text": "${data.year}",
+                                        "fontSize": "8vh",
+                                        "color": "white",
+                                        "textAlign": "right",
+                                        "textAlignVertical": "center",
+                                        "fontWeight": "bold"
+                                    },
+                                    {
+                                        "type": "Text",
+                                        "width": "14vw",
+                                        "height": "100%",
+                                        "paddingLeft": "10dp",
+                                        "text": "(昭和64<br>/平成1)",
+                                        "fontSize": "3vh",
+                                        "color": "white",
+                                        "textAlign": "left",
+                                        "textAlignVertical": "center",
+                                        "fontWeight": "bold"
+                                    }
+                                ],
+                                "direction": "row"
+                            },
                             {
                                 "type": "Text",
                                 "width": "100%",
-                                "height": "20vh",
-                                "text": "${data.year}/${data.month}",
+                                "height": "11vh",
+                                "text": "${data.month}月",
                                 "fontSize": "10vh",
                                 "color": "white",
                                 "textAlign": "center",

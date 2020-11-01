@@ -60,7 +60,7 @@ class CommonUtil {
         let publicHolidays = this.getSessionValue(handlerInput, publicHolidaysKey);
         if (publicHolidays) {
             // セッションから取得できた場合
-            console.log(key + ' : ' + publicHolidays + '(セッションから取得)');
+            console.log(publicHolidaysKey + ' : ' + JSON.stringify(publicHolidays) + '(セッションから取得)');
         } else {
             // セッションから取得なかった場合
             // s3上の保存先を取得
@@ -74,7 +74,7 @@ class CommonUtil {
             const s3 = new AWS.S3();
             const response = await s3.getObject({ Bucket: bucket, Key: key }).promise();
             publicHolidays = JSON.parse(response.Body.toString('utf-8'));
-            console.log(key + ' : ' + publicHolidays + '(s3から取得)');
+            console.log(publicHolidaysKey + ' : ' + JSON.stringify(publicHolidays) + '(s3から取得)');
             // セッションに保管
             this.setSessionValue(handlerInput, publicHolidaysKey, publicHolidays);
         }
@@ -107,7 +107,7 @@ class CommonUtil {
             + '-' + ('0' + date.getDate()).slice(-2);
     }
 
-    // 祝日を返す。祝日でない場合はnullを返す
+    // 祝日名を返す。祝日でない場合はnullを返す
     getPublicHolidayText(date, publicHolidays) {
         return publicHolidays[this.formatDate(date)];
     }
@@ -182,7 +182,7 @@ class CommonUtil {
             let publicHolidayText = this.getPublicHolidayText(refDate, publicHolidays);
             // 祝日名
             data.dateInfo[i].publicHolidayText = publicHolidayText;
-            // 祝日名の、文字色
+            // 祝日名の文字色
             data.dateInfo[i].publicHolidayTextColor = inDate ? 'red' : 'palevioletred';
 
             // 日付けの文字色
