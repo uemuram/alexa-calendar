@@ -22,19 +22,22 @@ const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
+
+        // util.setSessionValue(handlerInput, 'REPROMPT_OUTPUT', "session_test");
 
         // TODO: タッチ処理時の画面遷移を実装
 
-        // 年月(現在日付け)を取得
+        // 年月(現在日付け)を取得(日本時間にするために+9している)
         const currentDate = new Date();
+        currentDate.setHours(currentDate.getHours() + 9);
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth() + 1;
         console.log('対象年月 : ' + year + '年' + month + '月');
 
-        // 対象年月の祝日一覧を取得
+        // 対象年月の祝日一覧を取得(非同期アクセスがあるのでawaitで処理環境を待つ)
         // TODO: 休日取得の実装
-        const publicHolidays = util.getPublicHolidays(handlerInput, year);
+        const publicHolidays = await util.getPublicHolidays(handlerInput, year);
         console.log('祝日一覧 : ' + JSON.stringify(publicHolidays));
 
         // ドキュメントを組み立てる。左上済にのみ日にちを入れているので、それを増殖させる
@@ -75,6 +78,10 @@ const TouchEventHandler = {
     handle(handlerInput) {
         // TcouhWrapperのargumentsで指定したパラメータを取得する
         const speechText = handlerInput.requestEnvelope.request.arguments[0];
+
+        // console.log("画面タッチ");
+        // console.log(util.getSessionValue(handlerInput, "dateInfoS3Path"));
+        // console.log("xxx");
 
         return handlerInput.responseBuilder
             .speak(speechText)

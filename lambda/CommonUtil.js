@@ -1,3 +1,5 @@
+const AWS = require('aws-sdk');
+
 class CommonUtil {
 
     // 状態をチェック
@@ -26,10 +28,63 @@ class CommonUtil {
         let attr = h.attributesManager.getSessionAttributes();
         attr[key] = value
         h.attributesManager.setSessionAttributes(attr);
+
+        console.log("セッション保存 : " + JSON.stringify(attr));
+
     }
 
+    // 日付け情報が保存されているs3パスを取得する
+    // 非同期処理を含むので、呼び出し元ではawaitを付けて呼び出すこと
+    async getDateInfoS3Path(handlerInput) {
+        // セッションにあればそこから取得、なければパラメータストアから取得
+        let dateInfoS3Path = this.getSessionValue(handlerInput, "DATE_INFO_S3_PATH");
+        if (dateInfoS3Path) {
+            console.log('dateInfoS3Path : ' + dateInfoS3Path + '(セッションから取得)');
+        } else {
+            const ssm = new AWS.SSM();
+            const request = {
+                Name: 'ALEXA-CALENDAR-DATEINFO-PATH',
+                WithDecryption: true
+            };
+            const response = await ssm.getParameter(request).promise();
+            dateInfoS3Path = response.Parameter.Value;
+            console.log('dateInfoS3Path : ' + dateInfoS3Path + '(パラメータストアから取得)');
+            // セッションに保管
+            this.setSessionValue(handlerInput, "DATE_INFO_S3_PATH", dateInfoS3Path);
+        }
+        return dateInfoS3Path;
+    }
+
+    // // 日付情報を取得
+    // async getPublicHolidaysFromS3(handlerInput, year) {
+    //     const s3 = new AWS.S3();
+    //     const response = await s3.getObject(
+    //         {
+    //             Bucket: 'mudev-alexa-private',
+    //             Key: 'calendar/dateinfo/publicHolidays/2020.json'
+    //         }
+    //     ).promise();
+
+    //     const publicHolidays = JSON.parse(response.Body.toString('utf-8'));
+    //     console.log(publicHolidays);
+
+    //     this.setSessionValue(handlerInput, "PUBLIC_HOLIDAYS_" + year, publicHolidays);
+
+    //     return publicHolidays;
+    //     //        return JSON.parse(publicHolidays);
+    // }
+
     // 該当年月の祝日一覧を取得する
-    getPublicHolidays(handlerInput, year) {
+    // 非同期処理を含むので、呼び出し元ではawaitを付けて呼び出すこと
+    async getPublicHolidays(handlerInput, year) {
+        // s3上の保存先を取得
+        const dateInfoS3Path = await this.getDateInfoS3Path(handlerInput);
+
+        // const publicHolidays = this.getPublicHolidaysFromS3(handlerInput, year);
+        // console.log('publicHolidays' + JSON.stringify(publicHolidays));
+        // this.setSessionValue(handlerInput, "dateInfoS3Path", dateInfoS3Path);
+
+
         // TODO: 動的取得を実装
         // TODO: 一度取得したものはセッションからとる、とれないものは定数からとる、etc
         let holidays = {
