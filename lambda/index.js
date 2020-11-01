@@ -75,17 +75,26 @@ const TouchEventHandler = {
                 handlerInput.requestEnvelope.request.source.handler === 'onPress')));
     },
     async handle(handlerInput) {
-        // TcouhWrapperのargumentsで指定したパラメータを取得する
-        const speakOutput = handlerInput.requestEnvelope.request.arguments[0];
+        const eventType = handlerInput.requestEnvelope.request.arguments[0];
+        let year = handlerInput.requestEnvelope.request.arguments[1];
+        let month = handlerInput.requestEnvelope.request.arguments[2];
+        console.log("タッチイベント : " + eventType + "," + year + "," + month);
 
-
-        // 年月(現在日付け)を取得(日本時間にするために+9している)
-        const currentDate = new Date();
-        currentDate.setHours(currentDate.getHours() + 9);
-        // const year = currentDate.getFullYear();
-        // const month = currentDate.getMonth() + 1;
-        const year = 2021;
-        const month = 1;
+        year = parseInt(year);
+        month = parseInt(month);
+        if (eventType == "transPrevMonth") {
+            console.log("前の月に遷移");
+            if (month == 1) {
+                year--;
+            }
+            month = month == 1 ? 12 : month - 1;
+        } else {
+            console.log("次の月に遷移");
+            if (month == 12) {
+                year++;
+            }
+            month = month == 11 ? 12 : (month + 1) % 12;
+        }
 
         console.log('対象年月 : ' + year + '年' + month + '月');
 
@@ -102,7 +111,11 @@ const TouchEventHandler = {
         let aplDataSource = require('./apl/CalendarTemplateDataSource.json');
         aplDataSource = util.setupTemplateDataSource(handlerInput, aplDataSource, year, month, publicHolidays);
 
-
+        // 音声を組み立て。無音を入れることにより表示を長くする。(音声長さ + 30秒表示)
+        const speakOutput = '<speak>'
+            + year + '年' + month + '月のカレンダーです'
+            + '<break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/>'
+            + '</speak>';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)

@@ -112,6 +112,21 @@ class CommonUtil {
         return publicHolidays[this.formatDate(date)];
     }
 
+    // 元号を返す
+    getEra(year) {
+        if (year == 1989) {
+            return '昭和64<br>/平成1'
+        } else if (year == 2019) {
+            return '平成31<br>/令和1'
+        } else if (year <= 1988) {
+            return '昭和' + (year - 1925);
+        } else if (year <= 2018) {
+            return '平成' + (year - 1988);
+        } else {
+            return '令和' + (year - 2018);
+        }
+    };
+
     // テンプレートドキュメントをセットアップする
     setupTemplateDocument(handlerInput, aplDocument) {
         // 丸型かどうか判定
@@ -153,7 +168,10 @@ class CommonUtil {
 
         // 年月
         data.year = year;
+        data.era = this.getEra(year);
         data.month = month;
+        data.prevMonth = month == 1 ? 12 : month - 1;
+        data.nextMonth = month == 11 ? 12 : (month + 1) % 12;
 
         // -- 日付け関連データの整備 --
         // カレンダー左上になる日付け(その月の1日 - 曜日)

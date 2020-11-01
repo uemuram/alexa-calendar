@@ -2,6 +2,9 @@
     "data": {
         "year": 2020,
         "month": 9,
+        "prevMonth":8,
+        "nextMonth":10,
+        "era" : "昭和64<br>/平成1",
         "dateInfo": [
             {
                 "date": 1,
