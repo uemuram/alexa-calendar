@@ -77,44 +77,39 @@ class CommonUtil {
     // 該当年月の祝日一覧を取得する
     // 非同期処理を含むので、呼び出し元ではawaitを付けて呼び出すこと
     async getPublicHolidays(handlerInput, year) {
-        // s3上の保存先を取得
-        const dateInfoPath = await this.getParameterFromSSM(handlerInput, 'ALEXA-CALENDAR-DATEINFO-PATH');
 
-        // const publicHolidays = this.getPublicHolidaysFromS3(handlerInput, year);
-        // console.log('publicHolidays' + JSON.stringify(publicHolidays));
-        // this.setSessionValue(handlerInput, "dateInfoS3Path", dateInfoS3Path);
+        // 保存キー
+        const publicHolidaysKey = "PUBLIC-HOLIDAYS-" + year;
 
+        // セッションにあればそこから取得、なければs3から取得
+        let publicHolidays = this.getSessionValue(handlerInput, publicHolidaysKey);
+        if (publicHolidays) {
+            // セッションから取得できた場合
+            console.log(key + ' : ' + publicHolidays + '(セッションから取得)');
+        } else {
+            // セッションから取得なかった場合
+            // s3上の保存先を取得
+            const dateInfoPath = await this.getParameterFromSSM(handlerInput, 'ALEXA-CALENDAR-DATEINFO-PATH');
+            const match = dateInfoPath.match(/^s3:\/\/([^/]+)\/(.+)$/);
+            const bucket = match[1];
+            const key = match[2] + 'publicHolidays/' + year + '.json';
+            console.log("祝日取得バケット : " + bucket + ' , キー : ' + key);
 
-        // TODO: 動的取得を実装
-        // TODO: 一度取得したものはセッションからとる、とれないものは定数からとる、etc
-        let holidays = {
-            "2020-01-01": "元日",
-            "2020-01-13": "成人の日",
-            "2020-02-11": "建国記念の日",
-            "2020-02-23": "天皇誕生日",
-            "2020-02-24": "天皇誕生日 振替休日",
-            "2020-03-20": "春分の日",
-            "2020-04-29": "昭和の日",
-            "2020-05-03": "憲法記念日",
-            "2020-05-04": "みどりの日",
-            "2020-05-05": "こどもの日",
-            "2020-05-06": "憲法記念日 振替休日",
-            "2020-07-23": "海の日",
-            "2020-07-24": "体育の日",
-            "2020-08-10": "山の日",
-            "2020-09-21": "敬老の日",
-            "2020-09-22": "秋分の日",
-            "2020-11-03": "文化の日",
-            "2020-11-23": "勤労感謝の日"
+            // s3から取得
+            const s3 = new AWS.S3();
+            const response = await s3.getObject({ Bucket: bucket, Key: key }).promise();
+            publicHolidays = JSON.parse(response.Body.toString('utf-8'));
+            console.log(key + ' : ' + publicHolidays + '(s3から取得)');
+            // セッションに保管
+            this.setSessionValue(handlerInput, publicHolidaysKey, publicHolidays);
         }
-
         // 補正(「天皇誕生日 振替休日」は単に「振替休日」)にする
-        for (let day in holidays) {
-            if (holidays[day].indexOf("振替休日") >= 0) {
-                holidays[day] = "振替休日";
+        for (let day in publicHolidays) {
+            if (publicHolidays[day].indexOf("振替休日") >= 0) {
+                publicHolidays[day] = "振替休日";
             }
         }
-        return holidays;
+        return publicHolidays;
     }
 
     // 同じ日付けかどうか判定する
