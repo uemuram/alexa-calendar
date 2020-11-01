@@ -33,26 +33,26 @@ class CommonUtil {
 
     }
 
-    // 日付け情報が保存されているs3パスを取得する
+    // パラメータストアから値を取得(再利用のために取得後にセッションに格納)
     // 非同期処理を含むので、呼び出し元ではawaitを付けて呼び出すこと
-    async getDateInfoS3Path(handlerInput) {
+    async getParameterFromSSM(handlerInput, key) {
         // セッションにあればそこから取得、なければパラメータストアから取得
-        let dateInfoS3Path = this.getSessionValue(handlerInput, "DATE_INFO_S3_PATH");
-        if (dateInfoS3Path) {
-            console.log('dateInfoS3Path : ' + dateInfoS3Path + '(セッションから取得)');
+        let parameter = this.getSessionValue(handlerInput, key);
+        if (parameter) {
+            console.log(key + ' : ' + parameter + '(セッションから取得)');
         } else {
             const ssm = new AWS.SSM();
             const request = {
-                Name: 'ALEXA-CALENDAR-DATEINFO-PATH',
+                Name: key,
                 WithDecryption: true
             };
             const response = await ssm.getParameter(request).promise();
-            dateInfoS3Path = response.Parameter.Value;
-            console.log('dateInfoS3Path : ' + dateInfoS3Path + '(パラメータストアから取得)');
+            parameter = response.Parameter.Value;
+            console.log(key + ' : ' + parameter + '(SSMから取得)');
             // セッションに保管
-            this.setSessionValue(handlerInput, "DATE_INFO_S3_PATH", dateInfoS3Path);
+            this.setSessionValue(handlerInput, key, parameter);
         }
-        return dateInfoS3Path;
+        return parameter;
     }
 
     // // 日付情報を取得
@@ -78,7 +78,7 @@ class CommonUtil {
     // 非同期処理を含むので、呼び出し元ではawaitを付けて呼び出すこと
     async getPublicHolidays(handlerInput, year) {
         // s3上の保存先を取得
-        const dateInfoS3Path = await this.getDateInfoS3Path(handlerInput);
+        const dateInfoPath = await this.getParameterFromSSM(handlerInput, 'ALEXA-CALENDAR-DATEINFO-PATH');
 
         // const publicHolidays = this.getPublicHolidaysFromS3(handlerInput, year);
         // console.log('publicHolidays' + JSON.stringify(publicHolidays));
