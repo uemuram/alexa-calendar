@@ -366,9 +366,9 @@
                             {
                                 "type": "Text",
                                 "width": "100%",
-                                "height": "11vh",
+                                "height": "25vh",
                                 "text": "${data.month}月",
-                                "fontSize": "10vh",
+                                "fontSize": "22vh",
                                 "color": "white",
                                 "textAlign": "center",
                                 "textAlignVertical": "center",
