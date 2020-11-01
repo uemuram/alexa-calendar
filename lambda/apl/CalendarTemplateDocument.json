@@ -308,7 +308,7 @@
                                         "height": "100%",
                                         "paddingLeft": "10dp",
                                         "text": "(${data.era})",
-                                        "fontSize": "3vh",
+                                        "fontSize": "4vh",
                                         "color": "white",
                                         "textAlign": "left",
                                         "textAlignVertical": "center",
