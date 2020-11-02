@@ -127,6 +127,29 @@ class CommonUtil {
         }
     };
 
+    // AMAZON.DATEから年と月を返す
+    getYearMonthFromAmazonDate(dateStr) {
+        let match;
+
+        // YYYY-MM-DD or YYYY-MM
+        match = dateStr.match(/^(\d{4})-(\d{2})/);
+        if (match) {
+            return {
+                year: parseInt(match[1]),
+                month: parseInt(match[2])
+            }
+        }
+        // YYYY
+        match = dateStr.match(/^(\d{4})$/);
+        if (match) {
+            return {
+                year: parseInt(match[1]),
+                month: 1
+            }
+        }
+        return {};
+    }
+
     // テンプレートドキュメントをセットアップする
     setupTemplateDocument(handlerInput, aplDocument) {
         // 丸型かどうか判定
@@ -232,6 +255,40 @@ class CommonUtil {
         }
 
         return aplDataSource;
+    }
+
+    // カレンダー用のレスポンスを組み立てて返却する
+    async getDispCalendarResponse(handlerInput, year, month) {
+        console.log('対象年月 : ' + year + '年' + month + '月');
+
+        // 対象年月の祝日一覧を取得(非同期アクセスがあるのでawaitで処理環境を待つ)
+        const publicHolidays = await this.getPublicHolidays(handlerInput, year);
+        console.log('祝日一覧 : ' + JSON.stringify(publicHolidays));
+
+        // ドキュメントを組み立てる。左上済にのみ日にちを入れているので、それを増殖させる
+        let aplDocument = require('./apl/CalendarTemplateDocument.json');
+        aplDocument = this.setupTemplateDocument(handlerInput, aplDocument);
+
+        // ドキュメントに動的変更値を割り当てる
+        let aplDataSource = require('./apl/CalendarTemplateDataSource.json');
+        aplDataSource = this.setupTemplateDataSource(handlerInput, aplDataSource, year, month, publicHolidays);
+
+        // 音声を組み立て。無音を入れることにより表示を長くする。(音声長さ + 30秒表示)
+        const speakOutput = '<speak>'
+            + year + '年' + month + '月のカレンダーです'
+            + '<break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/>'
+            + '</speak>';
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .addDirective({
+                type: 'Alexa.Presentation.APL.RenderDocument',
+                version: '1.4',
+                document: aplDocument,
+                datasources: aplDataSource
+            })
+            // .reprompt(speakOutput)
+            .getResponse();
     }
 }
 

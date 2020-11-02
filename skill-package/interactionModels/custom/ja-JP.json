@@ -9,7 +9,9 @@
                 },
                 {
                     "name": "AMAZON.HelpIntent",
-                    "samples": ["ヘルプ"]
+                    "samples": [
+                        "ヘルプ"
+                    ]
                 },
                 {
                     "name": "AMAZON.StopIntent",
@@ -18,10 +20,74 @@
                 {
                     "name": "AMAZON.NavigateHomeIntent",
                     "samples": []
+                },
+                {
+                    "name": "SpecifyYearMonthIntent",
+                    "slots": [
+                        {
+                            "name": "Date",
+                            "type": "AMAZON.DATE"
+                        },
+                        {
+                            "name": "Destination",
+                            "type": "DESTINATION"
+                        }
+                    ],
+                    "samples": [
+                        " {Date} ",
+                        " {Date} を表示",
+                        " {Date} を表示して",
+                        " {Date} を見せて",
+                        " {Date} を出して",
+                        " {Date} を映して",
+                        " {Date} に移動",
+                        " {Date} に移動して",
+                        " {Date} のカレンダー",
+                        " {Date} のカレンダーを表示",
+                        " {Date} のカレンダーを表示して",
+                        " {Date} のカレンダーを見せて",
+                        " {Date} のカレンダーを出して",
+                        " {Date} のカレンダーを映して",
+                        " {Date} のカレンダーに移動",
+                        " {Date} のカレンダーに移動して",
+                        " {Destination} ",
+                        " {Destination} を表示",
+                        " {Destination} を表示して",
+                        " {Destination} を見せて",
+                        " {Destination} を出して",
+                        " {Destination} を映して",
+                        " {Destination} に移動",
+                        " {Destination} に移動して",
+                        " {Destination} のカレンダー",
+                        " {Destination} のカレンダーを表示",
+                        " {Destination} のカレンダーを表示して",
+                        " {Destination} のカレンダーを見せて",
+                        " {Destination} のカレンダーを出して",
+                        " {Destination} のカレンダーを映して",
+                        " {Destination} のカレンダーに移動",
+                        " {Destination} のカレンダーに移動して"
+                    ]
                 }
             ],
-            "types": []
+            "types": [
+                {
+                    "name": "DESTINATION",
+                    "values": [
+                        {
+                            "id": "lastWeek",
+                            "name": {
+                                "value": "先週"
+                            }
+                        },
+                        {
+                            "id": "nextWeek",
+                            "name": {
+                                "value": "来週"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     }
-  }
-  
+}

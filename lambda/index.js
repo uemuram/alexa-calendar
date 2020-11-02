@@ -24,111 +24,40 @@ const LaunchRequestHandler = {
     },
     async handle(handlerInput) {
 
-        // util.setSessionValue(handlerInput, 'REPROMPT_OUTPUT', "session_test");
-
-        // TODO: タッチ処理時の画面遷移を実装
-
         // 年月(現在日付け)を取得(日本時間にするために+9している)
         const currentDate = new Date();
         currentDate.setHours(currentDate.getHours() + 9);
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth() + 1;
-        console.log('対象年月 : ' + year + '年' + month + '月');
 
-        // 対象年月の祝日一覧を取得(非同期アクセスがあるのでawaitで処理環境を待つ)
-        const publicHolidays = await util.getPublicHolidays(handlerInput, year);
-        console.log('祝日一覧 : ' + JSON.stringify(publicHolidays));
-
-        // ドキュメントを組み立てる。左上済にのみ日にちを入れているので、それを増殖させる
-        let aplDocument = require('./apl/CalendarTemplateDocument.json');
-        aplDocument = util.setupTemplateDocument(handlerInput, aplDocument);
-        // console.log(JSON.stringify(aplDocument));
-
-        // ドキュメントに動的変更値を割り当てる
-        let aplDataSource = require('./apl/CalendarTemplateDataSource.json');
-        aplDataSource = util.setupTemplateDataSource(handlerInput, aplDataSource, year, month, publicHolidays);
-
-        // 音声を組み立て。無音を入れることにより表示を長くする。(音声長さ + 30秒表示)
-        const speakOutput = '<speak>'
-            + year + '年' + month + '月のカレンダーです'
-            + '<break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/>'
-            + '</speak>';
-
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .addDirective({
-                type: 'Alexa.Presentation.APL.RenderDocument',
-                version: '1.4',
-                document: aplDocument,
-                datasources: aplDataSource
-            })
-            // .reprompt(speakOutput)
-            .getResponse();
+        // レスポンスを組み立て
+        const response = await util.getDispCalendarResponse(handlerInput, year, month);
+        return response;
     }
 };
 
-// 画面タッチ時の処理
-// const TouchEventHandler = {
-//     canHandle(handlerInput) {
-//         return ((handlerInput.requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent' &&
-//             (handlerInput.requestEnvelope.request.source.handler === 'Press' ||
-//                 handlerInput.requestEnvelope.request.source.handler === 'onPress')));
-//     },
-//     async handle(handlerInput) {
-//         const eventType = handlerInput.requestEnvelope.request.arguments[0];
-//         let year = handlerInput.requestEnvelope.request.arguments[1];
-//         let month = handlerInput.requestEnvelope.request.arguments[2];
-//         console.log("タッチイベント : " + eventType + "," + year + "," + month);
+// 年月を指定したカレンダー表示
+const SpecifyYearMonthIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'SpecifyYearMonthIntent';
+    },
+    async handle(handlerInput) {
 
-//         year = parseInt(year);
-//         month = parseInt(month);
-//         if (eventType == "transPrevMonth") {
-//             console.log("前の月に遷移");
-//             if (month == 1) {
-//                 year--;
-//             }
-//             month = month == 1 ? 12 : month - 1;
-//         } else {
-//             console.log("次の月に遷移");
-//             if (month == 12) {
-//                 year++;
-//             }
-//             month = month == 11 ? 12 : (month + 1) % 12;
-//         }
+        const dateSlotValue = Alexa.getSlotValue(handlerInput.requestEnvelope, 'Date');
+        let yearMonth, year, month;
+        if (dateSlotValue) {
+            console.log('スロット値(date) : ' + dateSlotValue);
+            yearMonth = util.getYearMonthFromAmazonDate(dateSlotValue);
+            year = yearMonth.year;
+            month = yearMonth.month;
+        }
 
-//         console.log('対象年月 : ' + year + '年' + month + '月');
-
-//         // 対象年月の祝日一覧を取得(非同期アクセスがあるのでawaitで処理環境を待つ)
-//         const publicHolidays = await util.getPublicHolidays(handlerInput, year);
-//         console.log('祝日一覧 : ' + JSON.stringify(publicHolidays));
-
-//         // ドキュメントを組み立てる。左上済にのみ日にちを入れているので、それを増殖させる
-//         let aplDocument = require('./apl/CalendarTemplateDocument.json');
-//         aplDocument = util.setupTemplateDocument(handlerInput, aplDocument);
-//         // console.log(JSON.stringify(aplDocument));
-
-//         // ドキュメントに動的変更値を割り当てる
-//         let aplDataSource = require('./apl/CalendarTemplateDataSource.json');
-//         aplDataSource = util.setupTemplateDataSource(handlerInput, aplDataSource, year, month, publicHolidays);
-
-//         // 音声を組み立て。無音を入れることにより表示を長くする。(音声長さ + 30秒表示)
-//         const speakOutput = '<speak>'
-//             + year + '年' + month + '月のカレンダーです'
-//             + '<break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/>'
-//             + '</speak>';
-
-//         return handlerInput.responseBuilder
-//             .speak(speakOutput)
-//             .addDirective({
-//                 type: 'Alexa.Presentation.APL.RenderDocument',
-//                 version: '1.4',
-//                 document: aplDocument,
-//                 datasources: aplDataSource
-//             })
-//             // .reprompt(speakOutput)
-//             .getResponse();
-//     }
-// };
+        // レスポンスを組み立て
+        const response = await util.getDispCalendarResponse(handlerInput, year, month);
+        return response;
+    }
+};
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
@@ -225,7 +154,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         NoDisplayRequestHandler,
         LaunchRequestHandler,
-//        TouchEventHandler,
+        SpecifyYearMonthIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         SessionEndedRequestHandler,
