@@ -139,8 +139,8 @@ class CommonUtil {
                 month: parseInt(match[2])
             }
         }
-        // YYYY
-        match = dateStr.match(/^(\d{4})$/);
+        // YYYY or YYYY-XX-XX
+        match = dateStr.match(/^(\d{4})/);
         if (match) {
             return {
                 year: parseInt(match[1]),
@@ -387,7 +387,7 @@ class CommonUtil {
         // 音声を組み立て。無音を入れることにより表示を長くする。(音声長さ + 30秒表示)
         const speakOutput = '<speak>'
             + year + '年' + month + '月のカレンダーです'
-            + '<break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/>'
+            + this.getWaitSpeak()
             + '</speak>';
 
         // 年月をセッションに保存
@@ -404,6 +404,36 @@ class CommonUtil {
             })
             // .reprompt(speakOutput)
             .getResponse();
+    }
+
+    // 範囲外年月チェック
+    checkAvailableDate(year) {
+        if (1949 <= year && year <= 2050) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // 待ち時間設定メッセージを返す
+    getWaitSpeak() {
+        return '<break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/>'
+            + '<break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/>'
+            + '<break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/>'
+            ;
+    }
+
+    // ディスプレイの表示状態に応じて待ち時間込みのメッセージを返す
+    getSpeakOutputWithWait(handlerInput, message) {
+        const currentDispYear = this.getSessionValue(handlerInput, 'CURRENT-DISP-YEAR');
+        const currentDispMonth = this.getSessionValue(handlerInput, 'CURRENT-DISP-MONTH');
+
+        // 一度でもディスプレイにカレンダーが表示されていれば、表示継続のために待つ
+        let waitSpeak = '';
+        if (currentDispYear && currentDispMonth) {
+            waitSpeak = this.getWaitSpeak()
+        }
+        return '<speak>' + message + waitSpeak + '</speak>';
     }
 }
 

@@ -30,7 +30,17 @@ const LaunchRequestHandler = {
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth() + 1;
 
-        // レスポンスを組み立て
+        // 利用可能チェック
+        if (!util.checkAvailableDate(year)) {
+            let speakOutput = util.getSpeakOutputWithWait(handlerInput,
+                '1949年から2050年の間で年月を指定してください。'
+            );
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .getResponse();
+        }
+
+        // カレンダー画面つきレスポンスを組み立て
         const response = await util.getDispCalendarResponse(handlerInput, year, month);
         return response;
     }
@@ -66,7 +76,27 @@ const SpecifyYearMonthIntentHandler = {
             month = yearMonth.month;
         }
 
-        // レスポンスを組み立て
+        // 年月取得できなかった場合
+        if (!year || !month) {
+            let speakOutput = util.getSpeakOutputWithWait(handlerInput,
+                '年月を認識できませんでした。もう一度お試しください。'
+            );
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .getResponse();
+        }
+
+        // 利用可能チェック
+        if (!util.checkAvailableDate(year)) {
+            let speakOutput = util.getSpeakOutputWithWait(handlerInput,
+                '1949年から2050年の間で年月を指定してください。'
+            );
+            return handlerInput.responseBuilder
+                .speak(speakOutput)
+                .getResponse();
+        }
+
+        // カレンダー画面つきレスポンスを組み立て
         const response = await util.getDispCalendarResponse(handlerInput, year, month);
         return response;
     }
@@ -78,7 +108,13 @@ const HelpIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'You can say hello to me! How can I help?';
+        const speakOutput = util.getSpeakOutputWithWait(handlerInput,
+            'シンプルなカレンダースキルです。画面つきのデバイスでご利用ください。'
+            + 'スキルを起動すると画面にカレンダーを約3分間表示します。'
+            + 'カレンダーが表示されている状態で、表示したい年月を指定するには'
+            + '「アレクサ、2020年10月のカレンダーを見せて」のように言ってください。'
+            + '表示を終了するには「アレクサ、終了」のように言ってください。'
+        );
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -120,9 +156,10 @@ const IntentReflectorHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest';
     },
     handle(handlerInput) {
-        const intentName = Alexa.getIntentName(handlerInput.requestEnvelope);
-        const speakOutput = `想定外の呼び出しが発生しました。もう一度お試しください。`;
 
+        const speakOutput = util.getSpeakOutputWithWait(handlerInput,
+            `想定外の呼び出しが発生しました。もう一度お試しください。`
+        );
         return handlerInput.responseBuilder
             .speak(speakOutput)
             //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
