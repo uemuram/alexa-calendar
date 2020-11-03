@@ -164,6 +164,14 @@ class CommonUtil {
         let currentDate = new Date();
         currentDate.setHours(currentDate.getHours() + 9);
 
+        // 表示中のカレンダーの時刻(取得できない場合は現在時刻を利用)
+        const currentDispYear = this.getSessionValue(handlerInput, 'CURRENT-DISP-YEAR');
+        const currentDispMonth = this.getSessionValue(handlerInput, 'CURRENT-DISP-MONTH');
+        let currentDispDate = currentDispYear && currentDispMonth
+            ? new Date(currentDispYear, currentDispMonth - 1, 1)
+            : new Date();
+        currentDispDate.setHours(currentDispDate.getHours() + 9);
+
         // 先々週
         if (destinationSlotId == 'lastLastWeek') {
             currentDate.setDate(currentDate.getDate() - 14);
@@ -235,10 +243,22 @@ class CommonUtil {
                 month: currentDate.getMonth() + 1
             }
         }
-
-
-
-
+        // 前月
+        if (destinationSlotId == 'minus1Month') {
+            currentDispDate.setMonth(currentDispDate.getMonth() - 1);
+            return {
+                year: currentDispDate.getFullYear(),
+                month: currentDispDate.getMonth() + 1
+            }
+        }
+        // 翌月
+        if (destinationSlotId == 'plus1Month') {
+            currentDispDate.setMonth(currentDispDate.getMonth() + 1);
+            return {
+                year: currentDispDate.getFullYear(),
+                month: currentDispDate.getMonth() + 1
+            }
+        }
     }
 
     // テンプレートドキュメントをセットアップする
@@ -369,6 +389,10 @@ class CommonUtil {
             + year + '年' + month + '月のカレンダーです'
             + '<break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/><break time="10s"/>'
             + '</speak>';
+
+        // 年月をセッションに保存
+        this.setSessionValue(handlerInput, 'CURRENT-DISP-YEAR', year);
+        this.setSessionValue(handlerInput, 'CURRENT-DISP-MONTH', month);
 
         return handlerInput.responseBuilder
             .speak(speakOutput)

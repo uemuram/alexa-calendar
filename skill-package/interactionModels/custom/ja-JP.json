@@ -126,6 +126,24 @@
                             "name": {
                                 "value": "再来月"
                             }
+                        },
+                        {
+                            "id": "minus1Month",
+                            "name": {
+                                "value": "前月",
+                                "synonyms": [
+                                    "前の月"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "plus1Month",
+                            "name": {
+                                "value": "翌月",
+                                "synonyms": [
+                                    "次の月"
+                                ]
+                            }
                         }
                     ]
                 }
