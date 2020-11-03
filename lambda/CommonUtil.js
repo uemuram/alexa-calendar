@@ -147,6 +147,14 @@ class CommonUtil {
                 month: 1
             }
         }
+        // YYYY-季節(SP,SU,FA,WI)
+        match = dateStr.match(/^(\d{4})-(SP|SU|FA|WI)/);
+        if (match) {
+            return {
+                year: parseInt(match[1]),
+                month: { SP: 4, SU: 7, FA: 10, WI: 1 }[match[2]]
+            }
+        }
         return {};
     }
 
@@ -167,6 +175,13 @@ class CommonUtil {
         // 先週
         if (destinationSlotId == 'lastWeek') {
             currentDate.setDate(currentDate.getDate() - 7);
+            return {
+                year: currentDate.getFullYear(),
+                month: currentDate.getMonth() + 1
+            }
+        }
+        // 今週
+        if (destinationSlotId == 'thisWeek') {
             return {
                 year: currentDate.getFullYear(),
                 month: currentDate.getMonth() + 1

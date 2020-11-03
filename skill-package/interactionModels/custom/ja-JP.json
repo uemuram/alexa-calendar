@@ -86,6 +86,12 @@
                             }
                         },
                         {
+                            "id": "thisWeek",
+                            "name": {
+                                "value": "今週"
+                            }
+                        },
+                        {
                             "id": "nextWeek",
                             "name": {
                                 "value": "来週"
