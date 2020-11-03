@@ -259,6 +259,22 @@ class CommonUtil {
                 month: currentDispDate.getMonth() + 1
             }
         }
+        // 前年
+        if (destinationSlotId == 'minus1Year') {
+            currentDispDate.setFullYear(currentDispDate.getFullYear() - 1);
+            return {
+                year: currentDispDate.getFullYear(),
+                month: currentDispDate.getMonth() + 1
+            }
+        }
+        // 翌年
+        if (destinationSlotId == 'plus1Year') {
+            currentDispDate.setFullYear(currentDispDate.getFullYear() + 1);
+            return {
+                year: currentDispDate.getFullYear(),
+                month: currentDispDate.getMonth() + 1
+            }
+        }
     }
 
     // テンプレートドキュメントをセットアップする

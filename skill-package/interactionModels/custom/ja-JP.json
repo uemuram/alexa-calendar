@@ -144,6 +144,24 @@
                                     "次の月"
                                 ]
                             }
+                        },
+                        {
+                            "id": "minus1Year",
+                            "name": {
+                                "value": "前年",
+                                "synonyms": [
+                                    "前の年"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "plus1Year",
+                            "name": {
+                                "value": "翌年",
+                                "synonyms": [
+                                    "次の年"
+                                ]
+                            }
                         }
                     ]
                 }
