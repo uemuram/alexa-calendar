@@ -3,17 +3,24 @@
     "publishingInformation": {
       "locales": {
         "ja-JP": {
-          "summary": "Sample Short Description",
+          "summary": "画面にカレンダーを表示するスキルです。",
           "examplePhrases": [
             "アレクサ、シンプルカレンダーを開いて"
           ],
           "name": "シンプルカレンダー",
-          "description": "Sample Full Description"
+          "keywords": [
+            "カレンダー",
+            "スケジュール",
+            "時間"
+          ],
+          "smallIconUri": "https://uemuram.github.io/alexa-stopwatch/icon108.png",
+          "largeIconUri": "https://uemuram.github.io/alexa-stopwatch/icon512.png",
+          "description": "シンプルなカレンダースキルです。画面にカレンダーを表示します。\n※画面付きデバイスでご利用ください。\n\n\n「アレクサ、シンプルカレンダーを開いて」でスキルを開くと、画面に今月のカレンダーを表示します。\nカレンダーは約3分間表示されます。\n\nカレンダーが表示されている状態で、以下のように表示年月を指定できます。\n「アレクサ、2020年10月」\n「アレクサ、来月」\n\nまた、以下のように月を戻したり進めたりすることもできます。\n「アレクサ、前の月」\n「アレクサ、次の月」\n\n表示を終了するには「アレクサ、終了」のように言ってください。"
         }
       },
       "isAvailableWorldwide": false,
-      "testingInstructions": "Sample Testing Instructions.",
-      "category": "KNOWLEDGE_AND_TRIVIA",
+      "testingInstructions": "Alexa対応デバイス以外に必要なものはありません。フレーズ例にしたがって発話するだけでテストできます。",
+      "category": "CALENDARS_AND_REMINDERS",
       "distributionCountries": [
         "JP"
       ]
@@ -30,6 +37,13 @@
         ]
       }
     },
-    "manifestVersion": "1.0"
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "usesPersonalInfo": false,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false
+    }
   }
 }
