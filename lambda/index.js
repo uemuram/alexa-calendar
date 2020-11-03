@@ -43,12 +43,13 @@ const SpecifyYearMonthIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'SpecifyYearMonthIntent';
     },
     async handle(handlerInput) {
-
+        // スロット値を取得
         const dateSlotValue = Alexa.getSlotValue(handlerInput.requestEnvelope, 'Date');
         console.log('スロット値(date) : ' + dateSlotValue);
         const destinationSlotValue = Alexa.getSlotValue(handlerInput.requestEnvelope, 'Destination');
         console.log('スロット値(destination) : ' + destinationSlotValue);
 
+        // スロット値から年月を確定
         let yearMonth, year = null, month = null;
         if (dateSlotValue) {
             console.log('dateから取得');
@@ -81,10 +82,11 @@ const HelpIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            .reprompt(speakOutput)
+            //   .reprompt(speakOutput)
             .getResponse();
     }
 };
+
 const CancelAndStopIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -98,6 +100,7 @@ const CancelAndStopIntentHandler = {
             .getResponse();
     }
 };
+
 const SessionEndedRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest';
@@ -140,7 +143,7 @@ const ErrorHandler = {
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            .reprompt(speakOutput)
+            //.reprompt(speakOutput)
             .getResponse();
     }
 };
