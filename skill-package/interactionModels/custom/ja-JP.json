@@ -74,6 +74,12 @@
                     "name": "DESTINATION",
                     "values": [
                         {
+                            "id": "lastLastWeek",
+                            "name": {
+                                "value": "先々週"
+                            }
+                        },
+                        {
                             "id": "lastWeek",
                             "name": {
                                 "value": "先週"
@@ -83,6 +89,36 @@
                             "id": "nextWeek",
                             "name": {
                                 "value": "来週"
+                            }
+                        },
+                        {
+                            "id": "nextNextWeek",
+                            "name": {
+                                "value": "再来週"
+                            }
+                        },
+                        {
+                            "id": "lastLastMonth",
+                            "name": {
+                                "value": "先々月"
+                            }
+                        },
+                        {
+                            "id": "lastMonth",
+                            "name": {
+                                "value": "先月"
+                            }
+                        },
+                        {
+                            "id": "nextMonth",
+                            "name": {
+                                "value": "来月"
+                            }
+                        },
+                        {
+                            "id": "nextNextMonth",
+                            "name": {
+                                "value": "再来月"
                             }
                         }
                     ]

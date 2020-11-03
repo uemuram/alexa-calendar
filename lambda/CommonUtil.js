@@ -150,6 +150,82 @@ class CommonUtil {
         return {};
     }
 
+    // DESTINATIONから年と月を返す
+    getYearMonthFromDestination(handlerInput, destinationSlotId) {
+        // 基準となる現在時刻
+        let currentDate = new Date();
+        currentDate.setHours(currentDate.getHours() + 9);
+
+        // 先々週
+        if (destinationSlotId == 'lastLastWeek') {
+            currentDate.setDate(currentDate.getDate() - 14);
+            return {
+                year: currentDate.getFullYear(),
+                month: currentDate.getMonth() + 1
+            }
+        }
+        // 先週
+        if (destinationSlotId == 'lastWeek') {
+            currentDate.setDate(currentDate.getDate() - 7);
+            return {
+                year: currentDate.getFullYear(),
+                month: currentDate.getMonth() + 1
+            }
+        }
+        // 来週
+        if (destinationSlotId == 'nextWeek') {
+            currentDate.setDate(currentDate.getDate() + 7);
+            return {
+                year: currentDate.getFullYear(),
+                month: currentDate.getMonth() + 1
+            }
+        }
+        // 再来週
+        if (destinationSlotId == 'nextNextWeek') {
+            currentDate.setDate(currentDate.getDate() + 14);
+            return {
+                year: currentDate.getFullYear(),
+                month: currentDate.getMonth() + 1
+            }
+        }
+        // 先々月
+        if (destinationSlotId == 'lastLastMonth') {
+            currentDate.setMonth(currentDate.getMonth() - 2);
+            return {
+                year: currentDate.getFullYear(),
+                month: currentDate.getMonth() + 1
+            }
+        }
+        // 先月
+        if (destinationSlotId == 'lastMonth') {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            return {
+                year: currentDate.getFullYear(),
+                month: currentDate.getMonth() + 1
+            }
+        }
+        // 来月
+        if (destinationSlotId == 'nextMonth') {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            return {
+                year: currentDate.getFullYear(),
+                month: currentDate.getMonth() + 1
+            }
+        }
+        // 再来月
+        if (destinationSlotId == 'nextNextMonth') {
+            currentDate.setMonth(currentDate.getMonth() + 2);
+            return {
+                year: currentDate.getFullYear(),
+                month: currentDate.getMonth() + 1
+            }
+        }
+
+
+
+
+    }
+
     // テンプレートドキュメントをセットアップする
     setupTemplateDocument(handlerInput, aplDocument) {
         // 丸型かどうか判定

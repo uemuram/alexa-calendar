@@ -25,7 +25,7 @@ const LaunchRequestHandler = {
     async handle(handlerInput) {
 
         // 年月(現在日付け)を取得(日本時間にするために+9している)
-        const currentDate = new Date();
+        let currentDate = new Date();
         currentDate.setHours(currentDate.getHours() + 9);
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth() + 1;
@@ -45,10 +45,22 @@ const SpecifyYearMonthIntentHandler = {
     async handle(handlerInput) {
 
         const dateSlotValue = Alexa.getSlotValue(handlerInput.requestEnvelope, 'Date');
-        let yearMonth, year, month;
+        console.log('スロット値(date) : ' + dateSlotValue);
+        const destinationSlotValue = Alexa.getSlotValue(handlerInput.requestEnvelope, 'Destination');
+        console.log('スロット値(destination) : ' + destinationSlotValue);
+
+        let yearMonth, year = null, month = null;
         if (dateSlotValue) {
-            console.log('スロット値(date) : ' + dateSlotValue);
+            console.log('dateから取得');
             yearMonth = util.getYearMonthFromAmazonDate(dateSlotValue);
+            year = yearMonth.year;
+            month = yearMonth.month;
+        } else if (destinationSlotValue) {
+            console.log('destinationから取得');
+            let destinationSlotId = handlerInput.requestEnvelope.request.intent.slots.
+                Destination.resolutions.resolutionsPerAuthority[0].values[0].value.id;
+            console.log('destinationSlotId : ' + destinationSlotId);
+            yearMonth = util.getYearMonthFromDestination(handlerInput, destinationSlotId);
             year = yearMonth.year;
             month = yearMonth.month;
         }
